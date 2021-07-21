@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:onClick="insertClick">
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="176dp"
+        android:ems="10"
+        android:hint="아이디"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/input_phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="비밀번호"
+        android:inputType="textPersonName"
+        app:layout_constraintBaseline_toBaselineOf="@+id/input_pw"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName" />
+
+    <EditText
+        android:id="@+id/input_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="이름"
+        android:inputType="textPersonName"
+
+        app:layout_constraintStart_toStartOf="@+id/input_addr"
+        app:layout_constraintTop_toBottomOf="@+id/input_addr" />
+
+    <EditText
+        android:id="@+id/input_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="152dp"
+        android:ems="10"
+        android:hint="전화번호"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/btn_insert"
+        app:layout_constraintStart_toStartOf="@+id/input_name"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+    <EditText
+        android:id="@+id/input_zip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="우편번호"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/input_phone"
+        app:layout_constraintTop_toBottomOf="@+id/input_phone" />
+
+    <EditText
+        android:id="@+id/input_birth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="생년월일"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/input_type"
+        app:layout_constraintTop_toBottomOf="@+id/input_type" />
+
+    <EditText
+        android:id="@+id/input_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="타입"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/input_zip"
+        app:layout_constraintTop_toBottomOf="@+id/input_zip" />
+
+    <EditText
+        android:id="@+id/input_addr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="주소"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+
+    <EditText
+        android:id="@+id/input_pw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="비밀번호"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+    <EditText
+        android:id="@+id/input_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:hint="아이디"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_insert"
+        android:layout_width="65dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginBottom="141dp"
+        android:onClick="insertClick"
+        android:text="입력"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/input_birth"
+        app:layout_constraintTop_toBottomOf="@+id/input_phone" />
+</androidx.constraintlayout.widget.ConstraintLayout>
