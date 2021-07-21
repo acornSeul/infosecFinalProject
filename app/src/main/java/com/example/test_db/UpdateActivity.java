@@ -24,7 +24,7 @@ public class UpdateActivity extends AppCompatActivity {
         textView = (TextView)findViewById(R.id.txt_output);
         name_text = (EditText) findViewById(R.id.txt_name);
         editText = (EditText)findViewById(R.id.txt_input);
-        button = (Button)findViewById(R.id.btn_get);
+        button = (Button)findViewById(R.id.btn_insert);
 
     }
     //파라미터 전달 테스트

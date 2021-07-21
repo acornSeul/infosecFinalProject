@@ -9,49 +9,38 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
-    TextView textView;
-    EditText editText;
-    Button button2;
-    Button button3;
+
+    EditText edit_id;
+    EditText edit_pw;
+    Button btn_login;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = (TextView)findViewById(R.id.result);
-        editText = (EditText)findViewById(R.id.edit_id);
-        button2 =  (Button)findViewById(R.id.btn_next2);
-        button3 = (Button)findViewById(R.id.btn_next3);
+        edit_id = (EditText)findViewById(R.id.edit_userId);
+        edit_pw = (EditText)findViewById(R.id.edit_pw);
+        btn_login = (Button)findViewById(R.id.btn_login);
+
 
     }
-    //where test 버튼 클릭시
-    public void onClick(View v){
-        String url = "wheretest";
-        ContentValues value = new ContentValues();
-        value.put("mem_id", editText.getText().toString());
-
-        NetworkTask nt = new NetworkTask(url, value);
-        nt.execute();
-    }
-
-    //다음으로 화면 이동
-    public void nextClick(View v) throws JSONException {
-        Intent intent = new Intent(this, UpdateActivity.class);
-        startActivity(intent);
-    }
-
-    //다음2로 화면 이동
-    public void nextClick2(View v){
-        Intent intent2 = new Intent(this, InsertActivity.class);
-        startActivity(intent2);
+    public void onLogin(View v){
+        if (!edit_id.getText().toString().equals("") && edit_pw.getText().toString().equals("")){
+            Toast.makeText(this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
+        }
+        else if (edit_id.getText().toString().equals("")|| edit_pw.getText().toString().equals("")){
+            Toast.makeText(this, "아이디를 입력해주세요.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     //웹서버 통신
@@ -76,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            textView.setText(s);
         }
 
     }
