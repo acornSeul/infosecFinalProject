@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">test_db</string>
+    <string name="loginId">아이디</string>
+    <string name="loginpw">비밀번호</string>
+    <string name="c">개인</string>
+    <string name="t">택배기사</string>
+    <string name="login">로그인</string>
+    <string name="goqr">QR</string>
 </resources>
