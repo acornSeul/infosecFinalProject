@@ -1,16 +1,12 @@
 package com.example.team5_final;
 
 import androidx.annotation.Dimension;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,9 +15,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.test_db.qrcode.MainActivityQR;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         group.clearCheck();
 
     }
+    // 로그인 구현
     public void onLogin(View v){
         String loginId = edit_id.getText().toString();
         String lgoinPw = edit_pw.getText().toString();
@@ -65,26 +63,37 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "고객 유형을 선택해주세요.", Toast.LENGTH_SHORT).show();
         }
 
-        if (!loginId.equals("") && lgoinPw.equals("")){
-            txt_alert.setText("");
-            txt_alertpw.setTextSize(Dimension.SP,12);
-            txt_alertpw.setText("비밀번호를 입력해주세요.");
-        }
-        else if (loginId.equals("") && lgoinPw.equals("") && !type.equals("")){
-            txt_alert.setTextSize(Dimension.SP,12);
-            txt_alert.setText("아이디를 입력해주세요.");
-        }
-        else if (!loginId.equals("") && !lgoinPw.equals("")){
-            String url = "login";
-            ContentValues values = new ContentValues();
+        if (!type.equals("")){
+            //비밀번호만 공란인 경우
+            if (!loginId.equals("") && lgoinPw.equals("")){
+                txt_alert.setText("");
+                txt_alertpw.setTextSize(Dimension.SP,12);
+                txt_alertpw.setText("비밀번호를 입력해주세요.");
+            }
+            //아이디가 공란인 경우
+            else if (loginId.equals("") && lgoinPw.equals("")){
+                txt_alert.setTextSize(Dimension.SP,12);
+                txt_alert.setText("아이디를 입력해주세요.");
+            }
+            //둘다 공란이 아닌 경우
+            else if (!loginId.equals("") && !lgoinPw.equals("")){
+                String url = "login";
+                ContentValues values = new ContentValues();
 
-            values.put("in_id", loginId);
-            values.put("in_pw", lgoinPw);
-            values.put("in_type", type);
+                values.put("in_id", loginId);
+                values.put("in_pw", lgoinPw);
+                values.put("in_type", type);
 
-            NetworkTask nt = new NetworkTask(url, values);
-            nt.execute();
+                NetworkTask nt = new NetworkTask(url, values);
+                nt.execute();
+            }
         }
+
+    }
+    //qr_test
+    public void onNext(View v){
+        Intent intent_qr = new Intent(MainActivity.this, MainActivityQR.class);
+        startActivity(intent_qr);
     }
 
     //웹서버 통신
@@ -114,6 +123,11 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject json = new JSONObject(s);
                 String result = json.getString("result");
 
+                /*
+                 * result : x (아이디는 맞으나 비밀번호가 일치 하지 않음)
+                 *          n (아이디도 존재하지 않음)
+                 *          o (로그인 성공)
+                 */
                 if(result.equals("x") || result.equals("n")){
                     edit_id.setText("");
                     edit_pw.setText("");
