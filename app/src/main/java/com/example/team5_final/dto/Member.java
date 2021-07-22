@@ -1,6 +1,5 @@
-package com.example.test_db.dto;
+package com.example.team5_final.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
