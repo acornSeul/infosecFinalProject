@@ -22,6 +22,7 @@
         </activity>
         <activity android:name="com.example.team5_final.UpdateActivity"/>
         <activity android:name="com.example.team5_final.InsertActivity"/>
+        <activity android:name=".AfterLoginActivity"/>
     </application>
 
 </manifest>
