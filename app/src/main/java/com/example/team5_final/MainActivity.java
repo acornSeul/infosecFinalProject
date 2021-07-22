@@ -151,8 +151,6 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, AfterLoginActivity.class);
                         intent.putExtra("name", json.getString("name"));
 
-                        Log.d("test", "seul count : " + cnt);
-
                         startActivity(intent);
                     }
                 }
