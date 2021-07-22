@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.test_db.R;
+import com.example.team5_final.R;
 
 
 public class MainActivityQR extends AppCompatActivity {
