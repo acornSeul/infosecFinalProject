@@ -1,18 +1,14 @@
-package com.example.test_db;
+package com.example.team5_final;
 
 import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.test_db.dto.Member;
 
 import org.json.JSONException;
 import org.json.JSONObject;

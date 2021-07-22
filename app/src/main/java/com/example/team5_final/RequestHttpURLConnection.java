@@ -1,4 +1,4 @@
-package com.example.test_db;
+package com.example.team5_final;
 
 import android.content.ContentValues;
 import android.util.Log;
