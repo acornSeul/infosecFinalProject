@@ -1,12 +1,14 @@
 package com.example.team5_final;
 
 import androidx.annotation.Dimension;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -77,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
             }
             //둘다 공란이 아닌 경우
             else if (!loginId.equals("") && !lgoinPw.equals("")){
+                txt_alertpw.setText("");
+                txt_alert.setText("");
+
                 String url = "login";
                 ContentValues values = new ContentValues();
 
@@ -122,24 +127,38 @@ public class MainActivity extends AppCompatActivity {
             try {
                 JSONObject json = new JSONObject(s);
                 String result = json.getString("result");
-
+                int cnt = json.getInt("cnt");
                 /*
                  * result : x (아이디는 맞으나 비밀번호가 일치 하지 않음)
                  *          n (아이디도 존재하지 않음)
                  *          o (로그인 성공)
                  */
-                if(result.equals("x") || result.equals("n")){
-                    edit_id.setText("");
-                    edit_pw.setText("");
-                    txt_alertpw.setText("");
-                    txt_alert.setTextSize(Dimension.SP,12);
-                    txt_alert.setText("아이디가 존재하지 않거나, 잘못된 비밀번호 입니다.");
-                }
-                else if (result.equals("o")){
-                    Intent intent = new Intent(MainActivity.this, AfterLoginActivity.class);
-                    intent.putExtra("name", json.getString("name"));
+                if (cnt < 5){
+                    if(result.equals("x")){
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                        dialog.setMessage("비밀번호 오류입니다. \n 비밀번호 오류 5회 초과시 계정이 잠깁니다.( " + cnt + " / 5 )")
+                                .setPositiveButton("확인", null)
+                                .show();
 
-                    startActivity(intent);
+                    }
+                    else if (result.equals("n")){
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                        dialog.setMessage("존재하지 않는 아이디입니다.")
+                                .setPositiveButton("확인", null)
+                                .show();
+                    }
+                    else if (result.equals("o")){
+                        Intent intent = new Intent(MainActivity.this, AfterLoginActivity.class);
+                        intent.putExtra("name", json.getString("name"));
+
+                        startActivity(intent);
+                    }
+                }
+                else{
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                    dialog.setMessage("비밀번호 오류 횟수 초과로 인해 계정이 잠깁니다.\n관리자에게 문의해주세요.")
+                            .setPositiveButton("확인", null)
+                            .show();
                 }
 
             } catch (JSONException e) {
