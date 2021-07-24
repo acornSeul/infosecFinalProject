@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.Test_db">
+        android:theme="@style/AppTheme">
         <activity android:name="com.example.team5_final.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,6 +1,7 @@
 package com.example.team5_final;
 
 import androidx.annotation.Dimension;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +22,11 @@ import com.example.test_db.qrcode.MainActivityQR;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -100,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent_qr = new Intent(MainActivity.this, MainActivityQR.class);
         startActivity(intent_qr);
     }
-
     //웹서버 통신
     public class NetworkTask extends AsyncTask<Void, Void, String>{
         private String url = "http://192.168.0.3:8080/";
@@ -123,16 +128,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            Log.d("test2", "seul test2 : " + s);
 
             try {
                 JSONObject json = new JSONObject(s);
                 String result = json.getString("result");
                 int cnt = json.getInt("cnt");
-                /*
-                 * result : x (아이디는 맞으나 비밀번호가 일치 하지 않음)
+
+/*                 * result : x (아이디는 맞으나 비밀번호가 일치 하지 않음)
                  *          n (아이디도 존재하지 않음)
-                 *          o (로그인 성공)
-                 */
+                 *          o (로그인 성공)*/
+
                 if (cnt < 5){
                     if(result.equals("x")){
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
@@ -168,5 +174,52 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    //test
+    public void onTest (View v){
+        String url = "https://x21nn4mu90.execute-api.us-west-2.amazonaws.com/dev/items?NAME=seul";
+        String method = "GET";
+        NetworkTask2 nt2 = new NetworkTask2(url, method);
+        nt2.execute();
+    }
+    // url 통신
+    public class NetworkTask2 extends AsyncTask<Void, Void, String>{
+        private String url;
+        //private ContentValues values;
+        private String method;
 
+        public NetworkTask2(String url, String method) {
+            this.url = url;
+            //this.values = values;
+            this.method = method;
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            BufferedReader in = null;
+
+            try {
+                URL obj = new URL(url);
+                HttpURLConnection con = (HttpURLConnection)obj.openConnection();
+
+                con.setRequestMethod(method);
+
+                in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
+
+                String line;
+                while((line = in.readLine()) != null) {
+                    Log.d("test", "seul test : " + line);
+                }
+            } catch(Exception e) {
+                e.printStackTrace();
+            } finally {
+                if(in != null) try { in.close(); } catch(Exception e) { e.printStackTrace(); }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+    }
 }
