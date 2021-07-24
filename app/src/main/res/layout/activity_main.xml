@@ -115,13 +115,28 @@
 
     <Button
         android:id="@+id/btn_qr"
-        android:layout_width="62dp"
+        android:layout_width="0dp"
         android:layout_height="43dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="28dp"
+        android:layout_marginEnd="28dp"
         android:onClick="onNext"
         android:text="@string/goqr"
-        app:layout_constraintStart_toEndOf="@+id/radioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_test"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="192dp"
+        android:onClick="onTest"
+        android:text="test"
+        app:layout_constraintEnd_toStartOf="@+id/btn_qr"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
