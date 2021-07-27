@@ -100,10 +100,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    //qr_test
-    public void onNext(View v){
-        Intent intent_qr = new Intent(MainActivity.this, MainActivityQR.class);
-        startActivity(intent_qr);
+    //qr_test, AWS test
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.btn_qr:
+                Intent intent_qr = new Intent(MainActivity.this, MainActivityQR.class);
+                startActivity(intent_qr);
+                break;
+            case R.id.btn_test:
+                Intent intent = new Intent(MainActivity.this, TestActivity.class);
+                startActivity(intent);
+                break;
+        }
+
     }
     //웹서버 통신
     public class NetworkTask extends AsyncTask<Void, Void, String>{
@@ -134,10 +143,9 @@ public class MainActivity extends AppCompatActivity {
                 String result = json.getString("result");
                 int cnt = json.getInt("cnt");
 
-/*                 * result : x (아이디는 맞으나 비밀번호가 일치 하지 않음)
+/*               * result : x (아이디는 맞으나 비밀번호가 일치 하지 않음)
                  *          n (아이디도 존재하지 않음)
-                 *          o (로그인 성공)*/
-
+                 *          o (로그인 성공)  */
                 if (cnt < 5){
                     if(result.equals("x")){
                         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
@@ -155,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                     else if (result.equals("o")){
                         Intent intent = new Intent(MainActivity.this, AfterLoginActivity.class);
                         intent.putExtra("name", json.getString("name"));
+                        intent.putExtra("uniqueId", json.getString("uniqueId"));
 
                         startActivity(intent);
                     }
@@ -173,15 +182,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    //test
-    public void onTest (View v){
-/*        String url = "https://x21nn4mu90.execute-api.us-west-2.amazonaws.com/dev/items";
-        String method = "GET";
-        NetworkTask3 nt3 = new NetworkTask3(url, null);
-        nt3.execute();*/
-        Intent intent = new Intent(MainActivity.this, TestActivity.class);
-        startActivity(intent);
-    }
+
     // url 통신
     public class NetworkTask2 extends AsyncTask<Void, Void, String>{
         private String url;

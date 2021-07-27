@@ -49,15 +49,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="160dp"
+                    android:layout_marginRight="58dp"
                     android:text="보내는 사람"
                     android:textColor="@color/black" />
 
-                <CheckBox
-                    android:id="@+id/check_other"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="새로운 정보 입력" />
+                <Button
+                    android:id="@+id/btn_default_addr"
+                    android:layout_width="85dp"
+                    android:layout_height="36dp"
+                    android:layout_marginRight="10dp"
+                    android:text="기본 주소"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/btn_new_addr"
+                    android:layout_width="85dp"
+                    android:layout_height="36dp"
+                    android:text="새 주소"
+                    android:textSize="12sp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -164,7 +174,7 @@
                     <EditText
                         android:id="@+id/edit_apply_address"
                         android:layout_width="257dp"
-                        android:layout_height="35dp"
+                        android:layout_height="38dp"
                         android:background="@drawable/layout_round"
                         android:ems="10"
                         android:gravity="start|top"
@@ -191,6 +201,7 @@
                         android:layout_height="35dp"
                         android:background="@drawable/layout_round"
                         android:ems="10"
+                        android:hint="세부 주소"
                         android:inputType="textPersonName"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -307,7 +318,7 @@
                     <EditText
                         android:id="@+id/edit_apply_readdress"
                         android:layout_width="270dp"
-                        android:layout_height="35dp"
+                        android:layout_height="38dp"
                         android:background="@drawable/layout_round"
                         android:ems="10"
                         android:gravity="start|top"
@@ -334,6 +345,7 @@
                         android:layout_height="35dp"
                         android:background="@drawable/layout_round"
                         android:ems="10"
+                        android:hint="세부 주소"
                         android:inputType="textPersonName"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -394,7 +406,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="15dp"
-                        android:text="수량       " />
+                        android:text="수량        " />
 
                     <EditText
                         android:id="@+id/edit_apply_pcnt"
