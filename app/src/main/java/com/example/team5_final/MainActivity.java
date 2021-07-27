@@ -1,7 +1,6 @@
 package com.example.team5_final;
 
 import androidx.annotation.Dimension;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -176,10 +175,12 @@ public class MainActivity extends AppCompatActivity {
     }
     //test
     public void onTest (View v){
-        String url = "https://x21nn4mu90.execute-api.us-west-2.amazonaws.com/dev/items?NAME=seul";
+/*        String url = "https://x21nn4mu90.execute-api.us-west-2.amazonaws.com/dev/items";
         String method = "GET";
-        NetworkTask2 nt2 = new NetworkTask2(url, method);
-        nt2.execute();
+        NetworkTask3 nt3 = new NetworkTask3(url, null);
+        nt3.execute();*/
+        Intent intent = new Intent(MainActivity.this, TestActivity.class);
+        startActivity(intent);
     }
     // url 통신
     public class NetworkTask2 extends AsyncTask<Void, Void, String>{
@@ -220,6 +221,32 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+        }
+    }
+
+    // url 통신
+    public class NetworkTask3 extends AsyncTask<Void, Void, String>{
+        private String url;
+        private ContentValues values;
+
+        public NetworkTask3(String url, ContentValues values) {
+            this.url = url;
+            this.values = values;
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            String result;
+            RequestHttpURLConnection connection = new RequestHttpURLConnection();
+            result = connection.request(url, values);
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.d("test", "seul result : " + s);
         }
     }
 }
