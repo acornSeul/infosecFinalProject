@@ -1,5 +1,6 @@
 package com.example.team5_final;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -19,13 +20,20 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class AfterLoginActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
+    String uniqueId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afrerlogin);
 
+        Intent intent = getIntent();
+        uniqueId = intent.getStringExtra("uniqueId");
+
+        Log.d("unique test", "seul unique : " + uniqueId);
+
         bottomNavigationView = findViewById(R.id.bottom_view);
+
 
         Menu menu = bottomNavigationView.getMenu();
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -54,6 +62,11 @@ public class AfterLoginActivity extends AppCompatActivity {
                 fragment = new Fragment_home();
             } else if (id == R.id.bottom_apply){
                 fragment = new Fragment_apply();
+                //fragment로 파라미터 넘기기
+                Bundle bundle = new Bundle();
+                bundle.putString("uniqueId", uniqueId);
+
+                fragment.setArguments(bundle);
             } else{
                 fragment = new Fragment_list();
             }

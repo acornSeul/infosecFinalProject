@@ -22,8 +22,8 @@
 
     <TextView
         android:id="@+id/messageTextView"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_width="406dp"
+        android:layout_height="135dp"
         android:gravity="center"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@id/guideline"
@@ -48,7 +48,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/btn_addr_negative"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline" />
+        app:layout_constraintTop_toBottomOf="@id/guideline"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/btn_addr_negative"
@@ -69,19 +70,43 @@
         android:id="@+id/edit_input_addr"
         android:layout_width="288dp"
         android:layout_height="53dp"
+        android:layout_marginBottom="4dp"
         android:ems="10"
         android:hint="주소를 입력하세요"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="61dp"
-        tools:layout_editor_absoluteY="74dp"
         app:layout_constraintBottom_toBottomOf="@id/guideline5"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintLeft_toLeftOf="@id/guideline4"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="61dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        app:layout_constraintGuide_end="118dp" />
+
+    <TextView
+        android:id="@+id/txt_out_addr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        app:layout_constraintLeft_toLeftOf="@id/guideline4"
+        app:layout_constraintTop_toTopOf="@id/guideline2"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         app:layout_constraintGuide_begin="127dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
