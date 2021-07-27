@@ -61,9 +61,10 @@ public class RequestHttpURLConnection {
             urlConn.setRequestProperty("Accept-Charset", "UTF-8"); // Accept-Charset 설정.
             urlConn.setRequestProperty("Context_Type", "application/x-www-form-urlencoded;cahrset=UTF-8");
 
+
+
             // [2-2]. parameter 전달 및 데이터 읽어오기.
             String strParams = sbParams.toString();//sbParams에 정리한 파라미터들을 스트링으로 저장. 예)id=id1&pw=123;
-            Log.d("params", "seul params : " + strParams);
             OutputStream os = urlConn.getOutputStream();
             os.write(strParams.getBytes());
             os.flush();
