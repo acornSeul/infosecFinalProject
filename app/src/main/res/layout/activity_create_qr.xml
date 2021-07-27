@@ -6,10 +6,17 @@
     tools:context="com.example.test_db.qrcode.CreateQR"
     android:orientation="vertical">
 
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:id="@+id/qrcode"-->
+<!--        android:layout_centerVertical="true"-->
+<!--        android:layout_centerHorizontal="true"/>-->
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/qrcode"
+        android:id="@+id/imageView"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 

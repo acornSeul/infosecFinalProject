@@ -1,27 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context="com.example.test_db.qrcode.MainActivityQR">-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerVertical="true"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <Button-->
+<!--            android:id="@+id/createQR"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="QR Create" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/scanQR"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="QR Scan" />-->
+<!--    </LinearLayout>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginBottom="28dp"-->
+<!--        android:text="QR Create" />-->
+
+<!--    <EditText-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/editText"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_alignParentEnd="true" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/scanQR"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginBottom="130dp"-->
+<!--        android:text="QR Scan" />-->
+<!--</RelativeLayout>-->
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".qrcode.MainActivityQR">
+    android:padding="20dp"
+    tools:context="com.example.test_db.qrcode.MainActivityQR">
 
-    <LinearLayout
+<TextView
+    android:textColor="#7b1ec7"
+    android:textSize="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="이름" />
+
+<EditText
+    android:id="@+id/editText"
+    android:layout_width="372dp"
+    android:layout_height="wrap_content" />
+
+<TextView
+    android:textColor="#7b1ec7"
+    android:textSize="20dp"
+    android:id="@+id/temail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="보낸 주소" />
+
+<EditText
+    android:id="@+id/editText1"
+    android:layout_width="372dp"
+    android:layout_height="wrap_content" />
+
+<TextView
+    android:textColor="#7b1ec7"
+    android:textSize="20dp"
+    android:id="@+id/tb"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="받는 주소" />
+
+<EditText
+    android:id="@+id/editText2"
+    android:layout_width="372dp"
+    android:layout_height="wrap_content" />
+
+<Button
+    android:id="@+id/button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="28dp"
+    android:text="QR Create" />
+
+    <Button
+        android:id="@+id/scanQR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/createQR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="QR Create" />
-
-        <Button
-            android:id="@+id/scanQR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="QR Scan" />
-    </LinearLayout>
-</RelativeLayout>
+        android:layout_marginBottom="130dp"
+        android:text="QR Scan" />
+</LinearLayout>
