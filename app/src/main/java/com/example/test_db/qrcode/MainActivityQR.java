@@ -71,7 +71,7 @@ public class MainActivityQR extends AppCompatActivity {
         editText = (EditText) this.findViewById(R.id.editText);
         editText1 = (EditText) this.findViewById(R.id.editText1);
         editText2 = (EditText) this.findViewById(R.id.editText2);
-        button = (Button) this.findViewById(R.id.btn_apply_post);
+        button = (Button) this.findViewById(R.id.btn_apply);
         scanQRBtn = (Button) findViewById(R.id.scanQR);
 
         scanQRBtn.setOnClickListener(new View.OnClickListener(){
