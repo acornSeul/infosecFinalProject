@@ -18,7 +18,7 @@ public class RequestHttpURLConnection {
         HttpURLConnection urlConn = null;
         StringBuffer sbParams = new StringBuffer();
 
-        /**
+        /*
          * 1. StringBuffer에 파라미터 연결
          * */
         // 보낼 데이터가 없으면 파라미터를 비운다.
@@ -49,7 +49,7 @@ public class RequestHttpURLConnection {
             }
         }
 
-        /**
+        /*
          * 2. HttpURLConnection을 통해 web의 데이터를 가져온다.
          * */
         try{
@@ -85,7 +85,6 @@ public class RequestHttpURLConnection {
             while ((line = reader.readLine()) != null){
                 page += line;
             }
-            Log.d("test", "seul test : " + page);
 
             return page;
         } catch (MalformedURLException e) {

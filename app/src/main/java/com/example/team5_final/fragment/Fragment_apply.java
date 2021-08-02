@@ -4,36 +4,35 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.team5_final.AddressResponse;
-import com.example.team5_final.InsertActivity;
 import com.example.team5_final.NaverMapApi;
 import com.example.team5_final.R;
 import com.example.team5_final.RequestHttpURLConnection;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
+import lombok.SneakyThrows;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,23 +47,56 @@ public class Fragment_apply extends Fragment{
     EditText mem_phone;
     EditText mem_address;
     EditText mem_zipCode;
-    String uniqueId = "";
+    EditText mem_detail;
+    //받는 사람 정보
+    EditText rename;
+    EditText rePhone;
+    EditText readdress;
+    EditText rezipCode;
+    EditText reDetail;
+    //상품 정보
+    EditText p_name;
+    EditText p_cnt;
+    EditText p_price;
+    //라디오
+    RadioGroup group;
+    RadioButton encrypt;
+    RadioButton normal;
+    String encrpyt_type;
+    //mem_id
+    String uniqueId;
+    //기존 정보 or 새로운 정보
+    String addr_type;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_apply1, container, false);
-
+        //버튼
         Button btn_addr = (Button) view.findViewById(R.id.btn_address);
         Button btn_readdr = (Button) view.findViewById(R.id.btn_readress);
         Button btn_default_addr = (Button) view.findViewById(R.id.btn_default_addr);
         Button btn_new_addr = (Button) view.findViewById(R.id.btn_new_addr);
+        Button btn_apply = (Button) view.findViewById(R.id.btn_apply_post);
+        //안전택배 라디오버튼
+        group = (RadioGroup)view.findViewById(R.id.radiogroup_type);
         //보내는 사람 정보
-        mem_address = (EditText)view.findViewById(R.id.edit_apply_address);
-        mem_zipCode = (EditText)view.findViewById(R.id.edit_apply_zipCode);
         mem_name = (EditText)view.findViewById(R.id.edit_apply_name);
         mem_phone = (EditText)view.findViewById(R.id.edit_apply_phone);
+        mem_zipCode = (EditText)view.findViewById(R.id.edit_apply_zipCode);
+        mem_address = (EditText)view.findViewById(R.id.edit_apply_address);
+        mem_detail = (EditText)view.findViewById(R.id.edit_apply_detail);
         //받는 사람 정보
-        EditText readdress = (EditText)view.findViewById(R.id.edit_apply_readdress);
-        EditText rezipCode = (EditText)view.findViewById(R.id.edit_apply_rerezipCode);
+        rename = (EditText)view.findViewById(R.id.edit_apply_rename);
+        rePhone = (EditText)view.findViewById(R.id.edit_apply_rephone);
+        readdress = (EditText)view.findViewById(R.id.edit_apply_readdress);
+        rezipCode = (EditText)view.findViewById(R.id.edit_apply_rerezipCode);
+        reDetail = (EditText)view.findViewById(R.id.edit_apply_redetail);
+        //상품 정보
+        p_name = (EditText)view.findViewById(R.id.edit_apply_pname);
+        p_cnt = (EditText)view.findViewById(R.id.edit_apply_pcnt);
+        p_price = (EditText)view.findViewById(R.id.edit_apply_price);
+        //실행 시 전체 공백처리
+        clearText();
 
         //ArfterLoginActivity에서 넘긴 parameter
         Bundle extra = this.getArguments();
@@ -75,42 +107,108 @@ public class Fragment_apply extends Fragment{
         }
 
         //새로운 정보 입력 선택시
-        btn_new_addr.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
+        btn_new_addr.setOnClickListener((View v) -> {
+                addr_type = "new";
                 makeBlankText(mem_address);
                 makeBlankText(mem_zipCode);
                 makeBlankText(mem_name);
                 makeBlankText(mem_phone);
-            }
         });
         //기본 주소 선택시
         btn_default_addr.setOnClickListener(new View.OnClickListener(){
+            @SneakyThrows
             @Override
             public void onClick(View v) {
+                addr_type = "default";
                 //쿼리 실행
                 String url = "applyFirst";
                 ContentValues values = new ContentValues();
                 values.put("mem_id", uniqueId);
 
+                //기존 회원 정보 select
                 NetworkTask nt = new NetworkTask(url, values);
-                nt.execute();
+                String result = nt.execute().get();
+
+                JSONObject json = new JSONObject(result);
+                //기본 주소 설정
+                mem_name.setText(json.getString("name"));
+                mem_phone.setText(json.getString("phone"));
+                mem_address.setText(json.getString("address"));
+                mem_zipCode.setText(json.getString("zipCode"));
+
             }
         });
         //보내는 사람 주소 검색
-        btn_addr.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                makeDialog(mem_zipCode, mem_address);
-            }
-        });
+        btn_addr.setOnClickListener((View v) ->
+                makeDialog(mem_zipCode, mem_address)
+        );
         //받는 사람 주소 검색
-        btn_readdr.setOnClickListener(new View.OnClickListener(){
+        btn_readdr.setOnClickListener((View v) ->
+                makeDialog(rezipCode, readdress)
+        );
+        //신청 클릭
+        btn_apply.setOnClickListener(new View.OnClickListener(){
+            JSONObject apply_json = new JSONObject();
+
+            @SneakyThrows
             @Override
             public void onClick(View v) {
-                makeDialog(rezipCode, readdress);
+                if (addr_type == null || addr_type.equals("new")){
+                    //새로운 정보
+                    apply_json.put("type", "new");
+                    apply_json.put("in_name", mem_name.getText().toString());
+                    apply_json.put("in_phone", mem_phone.getText().toString());
+                    apply_json.put("in_zipCode", mem_zipCode.getText().toString());
+                    apply_json.put("in_address", mem_address.getText().toString() + " " + mem_detail.getText().toString());
+                } else if (addr_type.equals("default")){
+                    //기존 고객
+                    apply_json.put("type", "default");
+                    apply_json.put("mem_id", uniqueId);
+                }
+                //택배 타입
+                //택배 타입 설정
+                int rb = group.getCheckedRadioButtonId();
+                switch (rb){
+                    case R.id.radio_encrypt:
+                        encrpyt_type = "Y";
+                        break;
+                    case R.id.radio_normal:
+                        encrpyt_type = "N";
+                        break;
+                }
+                apply_json.put("encrypt_type", encrpyt_type);
+                //받는 사람 정보
+                apply_json.put("rename", rename.getText().toString());
+                apply_json.put("rephone", rePhone.getText().toString());
+                apply_json.put("rezipCode", rezipCode.getText().toString());
+                apply_json.put("readdress", readdress.getText().toString() + " " + reDetail.getText().toString());
+                //물품 정보
+                apply_json.put("p_name", p_name.getText().toString());
+                apply_json.put("p_cnt", p_cnt.getText().toString());
+                apply_json.put("p_price", p_price.getText().toString());
+
+                String url = "/apply";
+                ContentValues values = new ContentValues();
+                values.put("apply_json", apply_json.toString());
+
+                NetworkTask nt2 = new NetworkTask(url, values);
+                String apply_result = nt2.execute().get();
+
+                if (apply_result.equals("success")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+                            .setMessage("신청이 완료됐습니다.")
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                    builder.show();
+                    clearText();
+                }
             }
         });
+
 
         return view;
     }
@@ -209,24 +307,31 @@ public class Fragment_apply extends Fragment{
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
-            try {
-                JSONObject json = new JSONObject(s);
-                //초기 설정
-                mem_name.setText(json.getString("name"));
-                mem_phone.setText(json.getString("phone"));
-                mem_address.setText(json.getString("address"));
-                mem_zipCode.setText(json.getString("zipCode"));
-                
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            Log.d("result test", "seul result = " + s);
         }
     }
+    //부분 공백 처리
     public void makeBlankText (EditText editText){
         editText.setText("");
     }
-
+    //전체 공백 처리
+    public void clearText (){
+        mem_name.setText("");
+        mem_phone.setText("");
+        mem_zipCode.setText("");
+        mem_address.setText("");
+        mem_detail.setText("");
+        //받는 사람 정보
+        rename.setText("");
+        rePhone.setText("");
+        readdress.setText("");
+        rezipCode.setText("");
+        reDetail.setText("");
+        //상품 정보
+        p_name.setText("");
+        p_cnt.setText("");
+        p_price.setText("");
+    }
 
 
 }
