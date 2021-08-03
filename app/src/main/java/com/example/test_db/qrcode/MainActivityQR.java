@@ -22,34 +22,6 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 import java.util.Hashtable;
 
 
-//public class MainActivityQR extends AppCompatActivity {
-//    private Button createQRBtn;
-//    private Button scanQRBtn;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main_qr);
-//
-//        createQRBtn = (Button) findViewById(R.id.createQR);
-//        scanQRBtn = (Button) findViewById(R.id.scanQR);
-//
-//        createQRBtn.setOnClickListener(new View.OnClickListener(){
-//            public void onClick(View v){
-//                Intent intent = new Intent(MainActivityQR.this, CreateQR.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        scanQRBtn.setOnClickListener(new View.OnClickListener(){
-//            public void onClick(View v){
-//                Intent intent = new Intent(MainActivityQR.this, ScanQR.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
-//}
-
 public class MainActivityQR extends AppCompatActivity {
 
     private Button button;
