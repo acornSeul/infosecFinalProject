@@ -28,6 +28,7 @@
         <activity android:name="com.example.test_db.qrcode.ScanQR"/>
         <activity android:name=".AfterLoginActivity"/>
         <activity android:name=".TestActivity"/>
+        <activity android:name=".ScanTestActivity"/>
         <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation"/>

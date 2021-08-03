@@ -6,7 +6,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.team5_final.MainActivity;
 import com.example.team5_final.R;
+import com.example.team5_final.ScanTestActivity;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -31,10 +33,13 @@ public class ScanQR extends AppCompatActivity {
         if(result != null) {
             if(result.getContents() == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
-                // todo
             } else {
+                //화면전환 - 0729/슬
+                Intent intent = new Intent(ScanQR.this, ScanTestActivity.class);
+                intent.putExtra("result", result.getContents());
+                startActivity(intent);
+
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-                // todo
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
