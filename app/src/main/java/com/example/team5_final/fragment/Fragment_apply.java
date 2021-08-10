@@ -17,11 +17,11 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.team5_final.AddressResponse;
+import com.example.team5_final.network.AddressResponse;
 import com.example.team5_final.AfterApplyActivity;
-import com.example.team5_final.NaverMapApi;
+import com.example.team5_final.network.NaverMapApi;
 import com.example.team5_final.R;
-import com.example.team5_final.RequestHttpURLConnection;
+import com.example.team5_final.network.RequestHttpURLConnection;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -238,7 +238,6 @@ public class Fragment_apply extends Fragment{
                 dialog.dismiss();
             }
         });
-
         //취소 버튼
         negative.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -352,15 +351,9 @@ public class Fragment_apply extends Fragment{
                 Intent intent = new Intent(getContext(), AfterApplyActivity.class);
                 startActivity(intent);
                 clearText();
-/*                AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
-                        .setMessage("신청이 완료됐습니다.")
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                builder.show();
-                clearText();*/
+
+                Fragment_list f_list = new Fragment_list();
+                f_list.refreshAdapter(uniqueId);
             }
         }
     }

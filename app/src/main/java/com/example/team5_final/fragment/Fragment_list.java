@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5_final.R;
 import com.example.team5_final.RecyclerAdapter;
-import com.example.team5_final.RequestHttpURLConnection;
+import com.example.team5_final.network.RequestHttpURLConnection;
 import com.example.team5_final.dto.UserInvoice;
 
 import org.json.JSONArray;
@@ -54,12 +54,12 @@ public class Fragment_list extends Fragment {
         dataList = new ArrayList<>();
 
         setRecyclerView();
-        refreshAdapter();
+        refreshAdapter(uniqueId);
 
 
         return view;
     }
-    public void refreshAdapter(){
+    public void refreshAdapter(String uniqueId){
         //리스트 불러오기
         String list_url = "invoice/list";
         ContentValues list_values = new ContentValues();
@@ -69,7 +69,7 @@ public class Fragment_list extends Fragment {
         list_nt.execute();
     }
     private void setRecyclerView(){
-        recyclerAdapter = new RecyclerAdapter(getContext(), R.layout.item_recycler_view, dataList);
+        recyclerAdapter = new RecyclerAdapter(getContext(), R.layout.item_recycler_view, dataList, uniqueId);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(recyclerAdapter);
@@ -104,7 +104,7 @@ public class Fragment_list extends Fragment {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject json = new JSONObject(jsonArray.get(i).toString());
-                dataList.add(new UserInvoice(json.getString("in_num"), json.getString("name"), json.getString("re_name")));
+                dataList.add(new UserInvoice(json.getString("in_num"), json.getString("name"), json.getString("re_name"), json.getString("encryptYn")));
                 recyclerAdapter.notifyDataSetChanged();
             }
         }

@@ -11,4 +11,5 @@ public class UserInvoice {
     private String in_num;
     private String name;
     private String re_name;
+    private String encryptYn;
 }

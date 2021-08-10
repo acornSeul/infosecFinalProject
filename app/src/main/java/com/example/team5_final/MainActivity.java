@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.team5_final.fragment.AfterLoginActivity;
+import com.example.team5_final.network.RequestHttpURLConnection;
 
 import org.json.JSONObject;
 
@@ -127,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
             new_json.put("response", result_json.getString("response"));
             new_json.put("mem_id", result_json.getString("mem_id"));
+            new_json.put("tag_id", result_json.getString("tag_id"));
             new_json.put("loginCnt", result2_json.getString("loginCnt"));
 
             return new_json.toString();
@@ -138,11 +141,11 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
             JSONObject total_result = new JSONObject(s);
 
-            loginEvent(total_result.getString("response"),Integer.parseInt(total_result.getString("loginCnt")),total_result.getString("mem_id") );
+            loginEvent(total_result.getString("response"),Integer.parseInt(total_result.getString("loginCnt")),total_result.getString("mem_id"), total_result.getString("tag_id"));
         }
     }
     //로그인 처리
-    public void loginEvent (String result, int cnt, String mem_id){
+    public void loginEvent (String result, int cnt, String mem_id, String tag_id){
         if (cnt < 5){
             if(result.equals("x")){
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
@@ -158,10 +161,20 @@ public class MainActivity extends AppCompatActivity {
                         .show();
             }
             else if (result.equals("o")){
-                Intent intent = new Intent(MainActivity.this, AfterLoginActivity.class);
-                intent.putExtra("uniqueId", mem_id);
-
-                startActivity(intent);
+                //소비자 로그인
+                if (!mem_id.equals("")){
+                    Intent intent = new Intent(MainActivity.this, AfterLoginActivity.class);
+                    intent.putExtra("uniqueId", mem_id);
+                    startActivity(intent);
+                    Log.d("seul intent param", mem_id);
+                }
+                //택배기사 로그인
+                else{
+                    Intent intent = new Intent(MainActivity.this, PostManActivity.class);
+                    intent.putExtra("uniqueId", tag_id);
+                    startActivity(intent);
+                    Log.d("seul intent param", tag_id);
+                }
             }
         }
         else{
