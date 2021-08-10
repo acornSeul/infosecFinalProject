@@ -1,4 +1,5 @@
 package com.example.team5_final;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,10 +34,14 @@ public class TestActivity extends AppCompatActivity {
         editText = findViewById(R.id.edit_addr);
         button = findViewById(R.id.btn_naver);
 
+        Intent intent = getIntent();
+        String result = intent.getStringExtra("result");
+
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                searchAddress(editText.getText().toString(),postcode,home1);
+                //searchAddress(editText.getText().toString(),postcode,home1);
+                home1.setText(result);
             }
         });
     }

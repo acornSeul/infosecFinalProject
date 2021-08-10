@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
         <activity android:name="com.example.team5_final.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,17 +22,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.team5_final.UpdateActivity"/>
-        <activity android:name="com.example.team5_final.InsertActivity"/>
         <activity android:name="com.example.test_db.qrcode.MainActivityQR"/>
         <activity android:name="com.example.test_db.qrcode.CreateQR"/>
         <activity android:name="com.example.test_db.qrcode.ScanQR"/>
-        <activity android:name=".AfterLoginActivity"/>
+        <activity android:name=".fragment.AfterLoginActivity"
+                  android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".TestActivity"/>
         <activity android:name=".ScanTestActivity"/>
         <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation"/>
+        <activity android:name=".AfterApplyActivity"/>
+        <activity android:name=".ApplyInfoActivity"/>
+        <activity android:name=".UserInvoiceActivity"/>
     </application>
 
 </manifest>

@@ -11,18 +11,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.team5_final.R;
 import com.example.team5_final.RequestHttpURLConnection;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.util.Hashtable;
-import java.util.concurrent.ExecutionException;
+
+import lombok.SneakyThrows;
 
 
 //public class MainActivityQR extends AppCompatActivity {
@@ -83,6 +85,7 @@ public class MainActivityQR extends AppCompatActivity {
 
 
         button.setOnClickListener(new View.OnClickListener(){
+            @SneakyThrows
             @Override
             public void onClick(View v) {
                 String text2Qr = editText.getText().toString();
@@ -96,31 +99,24 @@ public class MainActivityQR extends AppCompatActivity {
                 NetworkTask nt = new NetworkTask(url, values);
 
                 String result = null;
-                try {
-                    // 실행한 결과값 받아오기
-                    result = nt.execute().get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                // 실행한 결과값 받아오기
+                result = nt.execute().get();
+
 
                 Log.d("test", "seul result : " + result);
 
-                try {
                     Hashtable hints = new Hashtable();
                     hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
                     //BitMatrix bitMatrix = multiFormatWriter.encode(text2Qr + "\n" + text2Qr1 + "\n" + text2Qr2, BarcodeFormat.QR_CODE, 300, 300, hints);
                     BitMatrix bitMatrix = multiFormatWriter.encode(result, BarcodeFormat.QR_CODE, 300, 300, hints);
+
                     BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                     Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
 
                     Intent intent = new Intent(context, CreateQR.class);
                     intent.putExtra("pic", bitmap);
                     context.startActivity(intent);
-                } catch (WriterException e) {
-                    e.printStackTrace();
-                }
+
             }
         });
     }
@@ -139,7 +135,7 @@ public class MainActivityQR extends AppCompatActivity {
         protected String doInBackground(Void... voids) {
             String result;
             RequestHttpURLConnection connection = new RequestHttpURLConnection();
-            result = connection.request(url, values);
+            result = connection.request(url, values, "POST");
 
             return result;
         }

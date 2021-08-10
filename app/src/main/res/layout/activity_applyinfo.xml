@@ -6,80 +6,73 @@
     android:layout_width="match_parent"
     android:fitsSystemWindows="true">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:fitsSystemWindows="true"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
-        tools:ignore="MissingClass,MissingConstraints">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <include
-                    android:id="@+id/toolbar_apply"
-                    layout="@layout/toolbar_fragment_apply"
+                    android:id="@+id/toolbar_apply_info"
+                    layout="@layout/toolbar_applyinfo"
                     />
 
             </LinearLayout>
-            <RadioGroup
-                android:id="@+id/radiogroup_type"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/radio_normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:text="일반 택배" />
-
-                <RadioButton
-                    android:id="@+id/radio_encrypt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="안전 택배" />
-            </RadioGroup>
+            <TextView
+                android:id="@+id/txt_encryptYn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="58dp"
+                android:layout_marginBottom="10dp"
+                android:text="textview"
+                android:textColor="@color/encrypt_color"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/text_createtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="접수 일자 "
+                    android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/textview_encrypt"
+                    android:id="@+id/txt_createTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="textview"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textview_song"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="58dp"
                     android:text="보내는 사람"
                     android:textColor="@color/black" />
-
-                <Button
-                    android:id="@+id/btn_default_addr"
-                    android:layout_width="85dp"
-                    android:layout_height="36dp"
-                    android:layout_marginRight="10dp"
-                    android:backgroundTint="@color/button2"
-                    android:text="기본 주소"
-                    android:textSize="12sp" />
-
-                <Button
-                    android:id="@+id/btn_new_addr"
-                    android:layout_width="85dp"
-                    android:layout_height="36dp"
-                    android:text="새 주소"
-                    android:backgroundTint="@color/button2"
-                    android:textSize="12sp" />
 
             </LinearLayout>
 
@@ -106,14 +99,13 @@
                         android:layout_height="wrap_content"
                         android:text="이름          " />
 
-                    <EditText
-                        android:id="@+id/edit_apply_name"
-                        android:layout_width="131dp"
-                        android:layout_height="35dp"
-                        android:background="@drawable/layout_round"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/txt_name"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="textview" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -129,14 +121,13 @@
                         android:layout_marginRight="15dp"
                         android:text="전화번호" />
 
-                    <EditText
-                        android:id="@+id/edit_apply_phone"
-                        android:layout_width="160dp"
-                        android:layout_height="35dp"
-                        android:background="@drawable/layout_round"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/txt_phone"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="textview" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -152,23 +143,14 @@
                         android:layout_marginRight="15dp"
                         android:text="주소       " />
 
-                    <EditText
-                        android:id="@+id/edit_apply_zipCode"
-                        android:layout_width="100dp"
-                        android:layout_height="35dp"
-                        android:layout_marginRight="30dp"
-                        android:background="@drawable/layout_round"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
-
-                    <Button
-                        android:id="@+id/btn_address"
+                    <TextView
+                        android:id="@+id/txt_address"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:backgroundTint="@color/button2"
-                        android:text="주소 찾기" />
+                        android:text="textview" />
+
                 </LinearLayout>
 
 
@@ -185,39 +167,14 @@
                         android:layout_marginRight="15dp"
                         android:text="            " />
 
-                    <EditText
-                        android:id="@+id/edit_apply_address"
-                        android:layout_width="257dp"
-                        android:layout_height="38dp"
-                        android:background="@drawable/layout_round"
-                        android:ems="10"
-                        android:gravity="start|top"
-                        android:inputType="textMultiLine"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
-
                     <TextView
-                        android:id="@+id/textVie456w10"
+                        android:id="@+id/txt_zipCode"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_marginLeft="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
-                        android:text="            " />
-
-                    <EditText
-                        android:id="@+id/edit_apply_detail"
-                        android:layout_width="150dp"
-                        android:layout_height="35dp"
-                        android:background="@drawable/layout_round"
-                        android:ems="10"
-                        android:hint="세부 주소"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
+                        android:text="textview" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -251,14 +208,13 @@
                         android:layout_height="wrap_content"
                         android:text="이름          " />
 
-                    <EditText
-                        android:id="@+id/edit_apply_rename"
-                        android:layout_width="131dp"
-                        android:layout_height="35dp"
-                        android:background="@drawable/layout_round"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/txt_re_name"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="textview" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -274,14 +230,13 @@
                         android:layout_marginRight="15dp"
                         android:text="전화번호" />
 
-                    <EditText
-                        android:id="@+id/edit_apply_rephone"
-                        android:layout_width="160dp"
-                        android:layout_height="35dp"
-                        android:background="@drawable/layout_round"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/txt_re_phone"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="textview" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -297,23 +252,14 @@
                         android:layout_marginRight="15dp"
                         android:text="주소       " />
 
-                    <EditText
-                        android:id="@+id/edit_apply_rerezipCode"
-                        android:layout_width="100dp"
-                        android:layout_height="35dp"
-                        android:layout_marginRight="30dp"
-                        android:background="@drawable/layout_round"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
-
-                    <Button
-                        android:id="@+id/btn_readress"
+                    <TextView
+                        android:id="@+id/txt_re_address"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:backgroundTint="@color/button2"
-                        android:text="주소 찾기" />
+                        android:text="textview" />
+
                 </LinearLayout>
 
 
@@ -330,39 +276,14 @@
                         android:layout_marginRight="15dp"
                         android:text="            " />
 
-                    <EditText
-                        android:id="@+id/edit_apply_readdress"
-                        android:layout_width="270dp"
-                        android:layout_height="38dp"
-                        android:background="@drawable/layout_round"
-                        android:ems="10"
-                        android:gravity="start|top"
-                        android:inputType="textMultiLine"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
-
                     <TextView
-                        android:id="@+id/textVie2w10"
+                        android:id="@+id/txt_re_zipCode"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_marginLeft="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="15dp"
-                        android:text="            " />
-
-                    <EditText
-                        android:id="@+id/edit_apply_redetail"
-                        android:layout_width="150dp"
-                        android:layout_height="35dp"
-                        android:background="@drawable/layout_round"
-                        android:ems="10"
-                        android:hint="세부 주소"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
+                        android:text="textview" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -400,14 +321,13 @@
                         android:layout_height="wrap_content"
                         android:text="물품명         " />
 
-                    <EditText
-                        android:id="@+id/edit_apply_pname"
-                        android:layout_width="131dp"
-                        android:layout_height="35dp"
-                        android:background="@drawable/layout_round"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/txt_p_name"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="textview" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -423,14 +343,13 @@
                         android:layout_marginRight="15dp"
                         android:text="수량        " />
 
-                    <EditText
-                        android:id="@+id/edit_apply_pcnt"
-                        android:layout_width="160dp"
-                        android:layout_height="35dp"
-                        android:background="@drawable/layout_round"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/txt_p_cnt"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="textview" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -446,42 +365,20 @@
                         android:layout_marginRight="15dp"
                         android:text="가격       " />
 
-                    <EditText
-                        android:id="@+id/edit_apply_price"
-                        android:layout_width="100dp"
-                        android:layout_height="35dp"
-                        android:layout_marginRight="120dp"
-                        android:background="@drawable/layout_round"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/txt_p_price"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="textview" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_apply_post"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:backgroundTint="@color/button2"
-                android:text="신청" />
-
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-<!--</androidx.constraintlayout.widget.ConstraintLayout>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F8F8FF">
-
--->

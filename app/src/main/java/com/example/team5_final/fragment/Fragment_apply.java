@@ -1,15 +1,10 @@
 package com.example.team5_final.fragment;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +15,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.team5_final.AddressResponse;
+import com.example.team5_final.AfterApplyActivity;
 import com.example.team5_final.NaverMapApi;
 import com.example.team5_final.R;
 import com.example.team5_final.RequestHttpURLConnection;
@@ -29,7 +27,6 @@ import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import lombok.SneakyThrows;
@@ -42,6 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class Fragment_apply extends Fragment{
+    final int MIN_KEYBOARD_HEIGHT_PX = 150;
     //default 설정할 edittext들
     EditText mem_name;
     EditText mem_phone;
@@ -71,6 +69,7 @@ public class Fragment_apply extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_apply1, container, false);
+
         //버튼
         Button btn_addr = (Button) view.findViewById(R.id.btn_address);
         Button btn_readdr = (Button) view.findViewById(R.id.btn_readress);
@@ -120,22 +119,13 @@ public class Fragment_apply extends Fragment{
             @Override
             public void onClick(View v) {
                 addr_type = "default";
-                //쿼리 실행
-                String url = "applyFirst";
-                ContentValues values = new ContentValues();
-                values.put("mem_id", uniqueId);
-
                 //기존 회원 정보 select
-                NetworkTask nt = new NetworkTask(url, values);
-                String result = nt.execute().get();
+                String applyFor_url = "apply/selectfor";
+                ContentValues applyFor_values = new ContentValues();
+                applyFor_values.put("mem_id", uniqueId);
 
-                JSONObject json = new JSONObject(result);
-                //기본 주소 설정
-                mem_name.setText(json.getString("name"));
-                mem_phone.setText(json.getString("phone"));
-                mem_address.setText(json.getString("address"));
-                mem_zipCode.setText(json.getString("zipCode"));
-
+                DefaultNetworkTask getDefault_nt = new DefaultNetworkTask(applyFor_url, applyFor_values,"GET");
+                getDefault_nt.execute();
             }
         });
         //보내는 사람 주소 검색
@@ -148,24 +138,15 @@ public class Fragment_apply extends Fragment{
         );
         //신청 클릭
         btn_apply.setOnClickListener(new View.OnClickListener(){
-            JSONObject apply_json = new JSONObject();
-
+            ContentValues apply_values = new ContentValues();
             @SneakyThrows
             @Override
             public void onClick(View v) {
-                if (addr_type == null || addr_type.equals("new")){
-                    //새로운 정보
-                    apply_json.put("type", "new");
-                    apply_json.put("in_name", mem_name.getText().toString());
-                    apply_json.put("in_phone", mem_phone.getText().toString());
-                    apply_json.put("in_zipCode", mem_zipCode.getText().toString());
-                    apply_json.put("in_address", mem_address.getText().toString() + " " + mem_detail.getText().toString());
-                } else if (addr_type.equals("default")){
-                    //기존 고객
-                    apply_json.put("type", "default");
-                    apply_json.put("mem_id", uniqueId);
-                }
-                //택배 타입
+                apply_values.put("mem_id", uniqueId);
+                apply_values.put("in_name", mem_name.getText().toString());
+                apply_values.put("in_phone", mem_phone.getText().toString());
+                apply_values.put("in_zipCode", mem_zipCode.getText().toString());
+                apply_values.put("in_address", mem_address.getText().toString() + " " + mem_detail.getText().toString());
                 //택배 타입 설정
                 int rb = group.getCheckedRadioButtonId();
                 switch (rb){
@@ -176,40 +157,23 @@ public class Fragment_apply extends Fragment{
                         encrpyt_type = "N";
                         break;
                 }
-                apply_json.put("encrypt_type", encrpyt_type);
+                apply_values.put("encryptYn", encrpyt_type);
                 //받는 사람 정보
-                apply_json.put("rename", rename.getText().toString());
-                apply_json.put("rephone", rePhone.getText().toString());
-                apply_json.put("rezipCode", rezipCode.getText().toString());
-                apply_json.put("readdress", readdress.getText().toString() + " " + reDetail.getText().toString());
+                apply_values.put("re_name", rename.getText().toString());
+                apply_values.put("re_phone", rePhone.getText().toString());
+                apply_values.put("re_zipCode", rezipCode.getText().toString());
+                apply_values.put("re_address", readdress.getText().toString() + " " + reDetail.getText().toString());
                 //물품 정보
-                apply_json.put("p_name", p_name.getText().toString());
-                apply_json.put("p_cnt", p_cnt.getText().toString());
-                apply_json.put("p_price", p_price.getText().toString());
+                apply_values.put("p_name", p_name.getText().toString());
+                apply_values.put("p_cnt", p_cnt.getText().toString());
+                apply_values.put("p_price", p_price.getText().toString());
 
-                String url = "/apply";
-                ContentValues values = new ContentValues();
-                values.put("apply_json", apply_json.toString());
-
-                NetworkTask nt2 = new NetworkTask(url, values);
-                String apply_result = nt2.execute().get();
-
-                if (apply_result.equals("success")){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
-                            .setMessage("신청이 완료됐습니다.")
-                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                }
-                            });
-                    builder.show();
-                    clearText();
-                }
+                // 여기 부분!!!!!!!!!
+                String apply_url = "apply";
+                ApplyNetworkTask apply_nt = new ApplyNetworkTask(apply_url, apply_values, "POST");
+                apply_nt.execute();
             }
         });
-
-
         return view;
     }
     //도로명 주소 검색
@@ -255,7 +219,6 @@ public class Fragment_apply extends Fragment{
             }
         });
     }
-
     //다이얼로그 생성 및 처리
     public void makeDialog(final EditText dial_zipCode, final EditText dial_addr){
         Dialog dialog = new Dialog(getActivity());
@@ -284,32 +247,6 @@ public class Fragment_apply extends Fragment{
             }
         });
     }
-
-    //웹서버 통신
-    public class NetworkTask extends AsyncTask<Void, Void, String> {
-        private String url = "http://192.168.0.3:8080/";
-        private ContentValues values;
-
-        public NetworkTask(String url, ContentValues values) {
-            this.url = this.url + url;
-            this.values = values;
-        }
-
-        @Override
-        protected String doInBackground(Void... voids) {
-            String result;
-            RequestHttpURLConnection connection = new RequestHttpURLConnection();
-            result = connection.request(url, values);
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Log.d("result test", "seul result = " + s);
-        }
-    }
     //부분 공백 처리
     public void makeBlankText (EditText editText){
         editText.setText("");
@@ -332,6 +269,99 @@ public class Fragment_apply extends Fragment{
         p_cnt.setText("");
         p_price.setText("");
     }
+    //Fragment Interface
+    interface RefreshInterface{
+        public void refreshAdapterFragment_list();
+    }
+    //기본 정보 조회 통신
+    public class DefaultNetworkTask extends AsyncTask<Void, Void, String> {
+        private String url = "https://hqlb195661.execute-api.us-east-2.amazonaws.com/Develop/";
+        private ContentValues values;
+        private String method;
 
+        public DefaultNetworkTask(String url, ContentValues values, String method) {
+            this.url = this.url + url;
+            this.values = values;
+            this.method = method;
+        }
 
+        @Override
+        protected String doInBackground(Void... voids) {
+            String result;
+            RequestHttpURLConnection connection = new RequestHttpURLConnection();
+            result = connection.request(url, values, method);
+
+            return result;
+        }
+
+        @SneakyThrows
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            JSONObject default_json = new JSONObject(s);
+            //기본 주소 설정
+            mem_name.setText(default_json.getString("name"));
+            mem_phone.setText(default_json.getString("phone"));
+            mem_address.setText(default_json.getString("address"));
+            mem_zipCode.setText(default_json.getString("zipcode"));
+        }
+    }
+    //기본 정보 조회 통신
+    public class ApplyNetworkTask extends AsyncTask<Void, Void, String> {
+        private String url = "https://hqlb195661.execute-api.us-east-2.amazonaws.com/Develop/";
+        private ContentValues values;
+        private String method;
+
+        public ApplyNetworkTask(String url, ContentValues values, String method) {
+            this.url = this.url + url;
+            this.values = values;
+            this.method = method;
+        }
+        @Override
+        protected String doInBackground(Void... voids) {
+            String result;
+            RequestHttpURLConnection connection = new RequestHttpURLConnection();
+            result = connection.request(url, values, method);
+
+            return result;
+        }
+
+        @SneakyThrows
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            JSONObject result_json = new JSONObject(s);
+            int i_result = result_json.getInt("i_result");
+            int p_result = result_json.getInt("p_result");
+            int b_result = result_json.getInt("b_result");
+            String encryptYn = result_json.getString("encryptYn");
+            String apply_result = "";
+
+            if (encryptYn.equals("Y")){
+                if (i_result == 1 && p_result == 1 && b_result == 1){
+                    apply_result =  "success";
+                }
+            }
+            else{
+                if (i_result == 1 && p_result ==1){
+                    apply_result =  "success";
+                }
+            }
+
+            if (apply_result.equals("success")){
+                Intent intent = new Intent(getContext(), AfterApplyActivity.class);
+                startActivity(intent);
+                clearText();
+/*                AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+                        .setMessage("신청이 완료됐습니다.")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                builder.show();
+                clearText();*/
+            }
+        }
+    }
 }

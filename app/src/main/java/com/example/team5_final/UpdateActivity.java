@@ -64,7 +64,7 @@ public class UpdateActivity extends AppCompatActivity {
         protected String doInBackground(Void... voids) {
             String result;
             RequestHttpURLConnection connection = new RequestHttpURLConnection();
-            result = connection.request(url, values);
+            result = connection.request(url, values, "POST");
 
             return result;
         }
