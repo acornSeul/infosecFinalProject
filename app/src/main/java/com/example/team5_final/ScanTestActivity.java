@@ -32,12 +32,10 @@ public class ScanTestActivity extends AppCompatActivity {
         String result = intent.getStringExtra("result");
 
 
-        JSONObject json = new JSONObject(result);
-        name = json.getString("name");
-        phone = json.getString("phone");
-        address = json.getString("address");
+        //JSONObject json = new JSONObject(result);
 
-        textView.setText("이름 : " + name + "\n 휴대폰 번호 : "+ phone + "\n주소 : " + address);
+
+        textView.setText(result);
 
 
 

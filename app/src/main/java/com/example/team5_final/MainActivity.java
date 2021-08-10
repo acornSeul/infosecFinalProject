@@ -1,14 +1,9 @@
 package com.example.team5_final;
 
-import androidx.annotation.Dimension;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,18 +12,17 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.test_db.qrcode.MainActivityQR;
+import androidx.annotation.Dimension;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONException;
+import com.example.team5_final.fragment.AfterLoginActivity;
+
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import lombok.SneakyThrows;
 
 public class MainActivity extends AppCompatActivity {
-
     EditText edit_id;
     EditText edit_pw;
     Button btn_login;
@@ -50,12 +44,12 @@ public class MainActivity extends AppCompatActivity {
         txt_alertpw = findViewById(R.id.txt_alertpw);
         group = findViewById(R.id.radioGroup);
         group.clearCheck();
-
     }
     // 로그인 구현
+    @SneakyThrows
     public void onLogin(View v){
         String loginId = edit_id.getText().toString();
-        String lgoinPw = edit_pw.getText().toString();
+        String loginPw = edit_pw.getText().toString();
         String type = "";
         int rb = group.getCheckedRadioButtonId();
 
@@ -72,182 +66,109 @@ public class MainActivity extends AppCompatActivity {
 
         if (!type.equals("")){
             //비밀번호만 공란인 경우
-            if (!loginId.equals("") && lgoinPw.equals("")){
+            if (!loginId.equals("") && loginPw.equals("")){
                 txt_alert.setText("");
                 txt_alertpw.setTextSize(Dimension.SP,12);
                 txt_alertpw.setText("비밀번호를 입력해주세요.");
             }
             //아이디가 공란인 경우
-            else if (loginId.equals("") && lgoinPw.equals("")){
+            else if (loginId.equals("") && loginPw.equals("")){
                 txt_alert.setTextSize(Dimension.SP,12);
                 txt_alert.setText("아이디를 입력해주세요.");
             }
             //둘다 공란이 아닌 경우
-            else if (!loginId.equals("") && !lgoinPw.equals("")){
+            else if (!loginId.equals("") && !loginPw.equals("")){
                 txt_alertpw.setText("");
                 txt_alert.setText("");
 
-                String url = "login";
-                ContentValues values = new ContentValues();
+                ContentValues login_values = new ContentValues();
+                ContentValues cnt_values = new ContentValues();
 
-                values.put("in_id", loginId);
-                values.put("in_pw", lgoinPw);
-                values.put("in_type", type);
+                login_values.put("in_id", loginId);
+                login_values.put("in_pw", loginPw);
+                login_values.put("in_type", type);
+                //cnt 파라미터
+                cnt_values.put("in_id", loginId);
+                cnt_values.put("in_type", type);
 
-                NetworkTask nt = new NetworkTask(url, values);
-                nt.execute();
+                NetworkTask login_nt = new NetworkTask("login", "login/getcnt", login_values, cnt_values);
+                login_nt.execute();
+                //Map<String, String> map = lambda.loginProcess(loginId, loginPw, type);
+                //loginEvent(map.get("response"), Integer.parseInt(map.get("cnt")), map.get("mem_id"));
             }
         }
-
     }
-    //qr_test, AWS test
-    public void onClick(View v){
-        switch (v.getId()){
-            case R.id.btn_qr:
-                Intent intent_qr = new Intent(MainActivity.this, MainActivityQR.class);
-                startActivity(intent_qr);
-                break;
-            case R.id.btn_test:
-                Intent intent = new Intent(MainActivity.this, TestActivity.class);
-                startActivity(intent);
-                break;
-        }
-
-    }
-    //웹서버 통신
-    public class NetworkTask extends AsyncTask<Void, Void, String>{
-        private String url = "http://192.168.0.3:8080/";
+    //로그인 서버 통신
+    public class NetworkTask extends AsyncTask<Void, Void, String> {
+        private String url = "https://hqlb195661.execute-api.us-east-2.amazonaws.com/Develop/";
+        private String url2 = "https://hqlb195661.execute-api.us-east-2.amazonaws.com/Develop/";
         private ContentValues values;
+        private ContentValues values2;
 
-        public NetworkTask(String url, ContentValues values) {
+        public NetworkTask(String url, String url2, ContentValues values, ContentValues values2) {
             this.url = this.url + url;
+            this.url2 = this.url2 + url2;
             this.values = values;
-        }
+            this.values2 = values2;
 
+        }
+        @SneakyThrows
         @Override
         protected String doInBackground(Void... voids) {
             String result;
+            String result2;
             RequestHttpURLConnection connection = new RequestHttpURLConnection();
-            result = connection.request(url, values);
+            result = connection.request(url, values, "POST");
+            result2 = connection.request(url2, values2, "GET");
 
-            return result;
+            JSONObject result_json = new JSONObject(result);
+            JSONObject result2_json = new JSONObject(result2);
+            JSONObject new_json = new JSONObject();
+
+            new_json.put("response", result_json.getString("response"));
+            new_json.put("mem_id", result_json.getString("mem_id"));
+            new_json.put("loginCnt", result2_json.getString("loginCnt"));
+
+            return new_json.toString();
         }
 
+        @SneakyThrows
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Log.d("test2", "seul test2 : " + s);
+            JSONObject total_result = new JSONObject(s);
 
-            try {
-                JSONObject json = new JSONObject(s);
-                String result = json.getString("result");
-                int cnt = json.getInt("cnt");
-
-/*               * result : x (아이디는 맞으나 비밀번호가 일치 하지 않음)
-                 *          n (아이디도 존재하지 않음)
-                 *          o (로그인 성공)  */
-                if (cnt < 5){
-                    if(result.equals("x")){
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                        dialog.setMessage("비밀번호 오류입니다. \n 비밀번호 오류 5회 초과시 계정이 잠깁니다.( " + cnt + " / 5 )")
-                                .setPositiveButton("확인", null)
-                                .show();
-
-                    }
-                    else if (result.equals("n")){
-                        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                        dialog.setMessage("존재하지 않는 아이디입니다.")
-                                .setPositiveButton("확인", null)
-                                .show();
-                    }
-                    else if (result.equals("o")){
-                        Intent intent = new Intent(MainActivity.this, AfterLoginActivity.class);
-                        intent.putExtra("name", json.getString("name"));
-                        intent.putExtra("uniqueId", json.getString("uniqueId"));
-
-                        startActivity(intent);
-                    }
-                }
-                else{
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                    dialog.setMessage("비밀번호 오류 횟수 초과로 인해 계정이 잠깁니다.\n관리자에게 문의해주세요.")
-                            .setPositiveButton("확인", null)
-                            .show();
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-    }
-
-    // url 통신
-    public class NetworkTask2 extends AsyncTask<Void, Void, String>{
-        private String url;
-        //private ContentValues values;
-        private String method;
-
-        public NetworkTask2(String url, String method) {
-            this.url = url;
-            //this.values = values;
-            this.method = method;
-        }
-
-        @Override
-        protected String doInBackground(Void... voids) {
-            BufferedReader in = null;
-
-            try {
-                URL obj = new URL(url);
-                HttpURLConnection con = (HttpURLConnection)obj.openConnection();
-
-                con.setRequestMethod(method);
-
-                in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
-
-                String line;
-                while((line = in.readLine()) != null) {
-                    Log.d("test", "seul test : " + line);
-                }
-            } catch(Exception e) {
-                e.printStackTrace();
-            } finally {
-                if(in != null) try { in.close(); } catch(Exception e) { e.printStackTrace(); }
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+            loginEvent(total_result.getString("response"),Integer.parseInt(total_result.getString("loginCnt")),total_result.getString("mem_id") );
         }
     }
+    //로그인 처리
+    public void loginEvent (String result, int cnt, String mem_id){
+        if (cnt < 5){
+            if(result.equals("x")){
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                dialog.setMessage("비밀번호 오류입니다. \n 비밀번호 오류 5회 초과시 계정이 잠깁니다.( " + cnt + " / 5 )")
+                        .setPositiveButton("확인", null)
+                        .show();
 
-    // url 통신
-    public class NetworkTask3 extends AsyncTask<Void, Void, String>{
-        private String url;
-        private ContentValues values;
+            }
+            else if (result.equals("n")){
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                dialog.setMessage("존재하지 않는 아이디입니다.")
+                        .setPositiveButton("확인", null)
+                        .show();
+            }
+            else if (result.equals("o")){
+                Intent intent = new Intent(MainActivity.this, AfterLoginActivity.class);
+                intent.putExtra("uniqueId", mem_id);
 
-        public NetworkTask3(String url, ContentValues values) {
-            this.url = url;
-            this.values = values;
+                startActivity(intent);
+            }
         }
-
-        @Override
-        protected String doInBackground(Void... voids) {
-            String result;
-            RequestHttpURLConnection connection = new RequestHttpURLConnection();
-            result = connection.request(url, values);
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Log.d("test", "seul result : " + s);
+        else{
+            AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+            dialog.setMessage("비밀번호 오류 횟수 초과로 인해 계정이 잠깁니다.\n관리자에게 문의해주세요.")
+                    .setPositiveButton("확인", null)
+                    .show();
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.team5_final;
+package com.example.team5_final.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.team5_final.fragment.Fragment_apply;
-import com.example.team5_final.fragment.Fragment_home;
-import com.example.team5_final.fragment.Fragment_list;
+import com.example.team5_final.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 
 public class AfterLoginActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
@@ -34,7 +31,6 @@ public class AfterLoginActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottom_view);
 
-
         Menu menu = bottomNavigationView.getMenu();
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -44,7 +40,6 @@ public class AfterLoginActivity extends AppCompatActivity {
             }
         });
     }
-
     private void BottomNavigate(int id){
         String tag = String.valueOf(id);
         FragmentManager manager = getSupportFragmentManager();
@@ -62,24 +57,23 @@ public class AfterLoginActivity extends AppCompatActivity {
                 fragment = new Fragment_home();
             } else if (id == R.id.bottom_apply){
                 fragment = new Fragment_apply();
-                //fragment로 파라미터 넘기기
+                //apply fragment로 파라미터 넘기기
                 Bundle bundle = new Bundle();
                 bundle.putString("uniqueId", uniqueId);
-
                 fragment.setArguments(bundle);
             } else{
                 fragment = new Fragment_list();
+                //list fragment로 파라미터 넘기기
+                Bundle bundle = new Bundle();
+                bundle.putString("uniqueId", uniqueId);
+                fragment.setArguments(bundle);
             }
-
             transaction.add(R.id.main_frame, fragment, tag);
         } else {
             transaction.show(fragment);
         }
-
         transaction.setPrimaryNavigationFragment(fragment);
         transaction.setReorderingAllowed(true);
         transaction.commitNow();
-
     }
-
 }
