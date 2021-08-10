@@ -2,19 +2,18 @@ package com.example.team5_final;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import lombok.SneakyThrows;
 
 public class ScanTestActivity extends AppCompatActivity {
     TextView textView;
+    String uniqueId;
 
     @SneakyThrows
     @Override
@@ -30,12 +29,17 @@ public class ScanTestActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String result = intent.getStringExtra("result");
+        uniqueId = intent.getStringExtra("mem_id");
 
+        JSONObject json = new JSONObject(result);
 
-        //JSONObject json = new JSONObject(result);
-
-
-        textView.setText(result);
+        if (uniqueId.equals(json.getString("mem_id"))){
+            Toast.makeText(this,"스캔 성공", Toast.LENGTH_LONG).show();
+            textView.setText(result);
+        }
+        else{
+            Toast.makeText(this,"스캔 실패", Toast.LENGTH_SHORT).show();
+        }
 
 
 

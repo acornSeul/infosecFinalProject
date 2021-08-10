@@ -34,7 +34,10 @@
             tools:replace="screenOrientation"/>
         <activity android:name=".AfterApplyActivity"/>
         <activity android:name=".ApplyInfoActivity"/>
-        <activity android:name=".UserInvoiceActivity"/>
+        <activity android:name=".EncryptInvoiceActivity"/>
+        <activity android:name=".NormalInvoiceActivity"/>
+        <activity android:name=".InvoiceScanActivity"/>
+        <activity android:name=".PostManActivity"/>
     </application>
 
 </manifest>

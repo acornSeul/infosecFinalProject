@@ -4,10 +4,11 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.team5_final.network.RequestHttpURLConnection;
 
 import org.json.JSONObject;
 
@@ -57,45 +58,33 @@ public class ApplyInfoActivity extends AppCompatActivity {
 
     public void invoice_linkNetwork() {
         String i_url = "invoice/detail";
-        String p_url = "invoice/product";
         ContentValues values = new ContentValues();
         values.put("in_num", in_num);
 
-        NetworkTask detail_nt = new NetworkTask(i_url, p_url, values, values);
+        NetworkTask detail_nt = new NetworkTask(i_url, values, "GET");
         detail_nt.execute();
     }
 
     //invoice detail 정보
     public class NetworkTask extends AsyncTask<Void, Void, String> {
         private String url = "https://hqlb195661.execute-api.us-east-2.amazonaws.com/Develop/";
-        private String url2 = "https://hqlb195661.execute-api.us-east-2.amazonaws.com/Develop/";
         private ContentValues values;
-        private ContentValues values2;
+        private String method;
 
-        public NetworkTask(String url, String url2, ContentValues values, ContentValues values2) {
+        public NetworkTask(String url,ContentValues values, String method) {
             this.url = this.url + url;
-            this.url2 = this.url2 + url2;
             this.values = values;
-            this.values2 = values2;
+            this.method = method;
         }
-
         @SneakyThrows
         @Override
         protected String doInBackground(Void... voids) {
             String result;
             String result2;
             RequestHttpURLConnection connection = new RequestHttpURLConnection();
-            result = connection.request(url, values, "GET");
-            result2 = connection.request(url2, values2, "GET");
+            result = connection.request(url, values, method);
 
-            JSONObject i_json = new JSONObject(result);
-            JSONObject p_json = new JSONObject(result2);
-
-            i_json.put("p_name", p_json.getString("p_name"));
-            i_json.put("p_cnt", String.valueOf(p_json.getInt("p_cnt")));
-            i_json.put("p_price", String.valueOf(p_json.getString("p_price")));
-
-            return i_json.toString();
+            return result;
         }
 
         @SneakyThrows
@@ -103,8 +92,6 @@ public class ApplyInfoActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             JSONObject json = new JSONObject(s);
-
-            Log.d("json result", s);
 
             if (json.getString("encryptYn").equals("Y")) {
                 txt_encryptYn.setText("[안전 택배]");

@@ -1,4 +1,4 @@
-package com.example.team5_final;
+package com.example.team5_final.network;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

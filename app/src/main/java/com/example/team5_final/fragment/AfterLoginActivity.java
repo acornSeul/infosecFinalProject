@@ -2,7 +2,6 @@ package com.example.team5_final.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -26,8 +25,6 @@ public class AfterLoginActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         uniqueId = intent.getStringExtra("uniqueId");
-
-        Log.d("unique test", "seul unique : " + uniqueId);
 
         bottomNavigationView = findViewById(R.id.bottom_view);
 
@@ -57,17 +54,13 @@ public class AfterLoginActivity extends AppCompatActivity {
                 fragment = new Fragment_home();
             } else if (id == R.id.bottom_apply){
                 fragment = new Fragment_apply();
-                //apply fragment로 파라미터 넘기기
-                Bundle bundle = new Bundle();
-                bundle.putString("uniqueId", uniqueId);
-                fragment.setArguments(bundle);
             } else{
                 fragment = new Fragment_list();
-                //list fragment로 파라미터 넘기기
-                Bundle bundle = new Bundle();
-                bundle.putString("uniqueId", uniqueId);
-                fragment.setArguments(bundle);
             }
+            Bundle bundle = new Bundle();
+            bundle.putString("uniqueId", uniqueId);
+            fragment.setArguments(bundle);
+
             transaction.add(R.id.main_frame, fragment, tag);
         } else {
             transaction.show(fragment);
