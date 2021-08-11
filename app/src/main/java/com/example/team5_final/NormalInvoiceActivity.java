@@ -5,18 +5,23 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-import com.example.team5_final.network.RequestHttpURLConnection;
+import com.example.team5_final.util.RequestHttpURLConnection;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import java.util.Hashtable;
@@ -46,6 +51,13 @@ public class NormalInvoiceActivity extends AppCompatActivity {
         in_num = intent.getStringExtra("in_num");
         mem_id = intent.getStringExtra("mem_id");
 
+        Toolbar toolbar = findViewById(R.id.toolbar_invoice);
+        ((AppCompatActivity) NormalInvoiceActivity.this).setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true); //뒤로가기 버튼
+
         txt_in_name = findViewById(R.id.txt_in_name);
         txt_in_phone = findViewById(R.id.txt_in_phone);
         txt_in_address = findViewById(R.id.txt_in_address);
@@ -64,6 +76,15 @@ public class NormalInvoiceActivity extends AppCompatActivity {
 
         NormalNetworkTask normal_nt = new NormalNetworkTask(url, values, "GET");
         normal_nt.execute();
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
     //일반 택배 운송장 조회
     public class NormalNetworkTask extends AsyncTask<Void, Void, String> {
@@ -91,6 +112,7 @@ public class NormalInvoiceActivity extends AppCompatActivity {
             super.onPostExecute(s);
             JSONObject json = new JSONObject(s);
             json.put("mem_id", mem_id);
+            json.put("in_num", in_num);
 
             txt_in_name.setText(json.getString("name"));
             txt_in_phone.setText(json.getString("phone"));

@@ -9,6 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="95dp"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/img_encrypt"
         app:layout_constraintStart_toEndOf="@+id/img_encrypt">
 
@@ -65,7 +66,7 @@
             android:id="@+id/item_in_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="8dp"
             android:text="TextView"
             android:textColor="@color/black"
             android:textSize="16sp"

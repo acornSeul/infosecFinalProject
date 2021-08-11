@@ -30,11 +30,10 @@ public class Fragment_home extends Fragment{
             uniqueId = extra.getString("uniqueId");
         }
 
-
         btn_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("seul id", uniqueId);
+                Log.d("frag_home unique", uniqueId);
                 Intent intent = new Intent(getContext(), InvoiceScanActivity.class);
                 intent.putExtra("uniqueId", uniqueId);
                 startActivity(intent);

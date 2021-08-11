@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5_final.R;
 import com.example.team5_final.RecyclerAdapter;
-import com.example.team5_final.network.RequestHttpURLConnection;
 import com.example.team5_final.dto.UserInvoice;
+import com.example.team5_final.util.RequestHttpURLConnection;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,6 +28,7 @@ import java.util.List;
 import lombok.SneakyThrows;
 
 public class Fragment_list extends Fragment {
+    private final static String FRAGMENT_TAG = "frag_list";
     String uniqueId;
     private RecyclerView recyclerView = null;
     private RecyclerAdapter recyclerAdapter = null;
@@ -42,7 +43,6 @@ public class Fragment_list extends Fragment {
         ActionBar actionBar = ((AppCompatActivity) getContext()).getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-        //actionBar.setDisplayHomeAsUpEnabled(true); 뒤로가기 버튼
         Bundle extra = this.getArguments();
 
         if (extra != null){
@@ -56,17 +56,18 @@ public class Fragment_list extends Fragment {
         setRecyclerView();
         refreshAdapter(uniqueId);
 
-
         return view;
     }
     public void refreshAdapter(String uniqueId){
-        //리스트 불러오기
-        String list_url = "invoice/list";
-        ContentValues list_values = new ContentValues();
-        list_values.put("mem_id", uniqueId);
+        if(getActivity() != null){
+            //리스트 불러오기
+            String list_url = "invoice/list";
+            ContentValues list_values = new ContentValues();
+            list_values.put("mem_id", uniqueId);
 
-        NetworkTask list_nt = new NetworkTask(list_url, list_values, "GET");
-        list_nt.execute();
+            NetworkTask list_nt = new NetworkTask(list_url, list_values, "GET");
+            list_nt.execute();
+        }
     }
     private void setRecyclerView(){
         recyclerAdapter = new RecyclerAdapter(getContext(), R.layout.item_recycler_view, dataList, uniqueId);

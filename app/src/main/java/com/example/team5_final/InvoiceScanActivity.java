@@ -50,7 +50,7 @@ public class InvoiceScanActivity extends AppCompatActivity {
                 }else{
                     //자신의 정보 스캔 시
                     if (uniqueId.equals(result_json.getString("mem_id"))) {
-                        Intent intent = new Intent(InvoiceScanActivity.this, ScanTestActivity.class);
+                        Intent intent = new Intent(InvoiceScanActivity.this, UserScanActivity.class);
                         intent.putExtra("result", result.getContents());
                         intent.putExtra("mem_id", uniqueId);
                         startActivity(intent);

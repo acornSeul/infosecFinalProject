@@ -15,7 +15,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.team5_final.R;
-import com.example.team5_final.network.RequestHttpURLConnection;
+import com.example.team5_final.util.RequestHttpURLConnection;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;

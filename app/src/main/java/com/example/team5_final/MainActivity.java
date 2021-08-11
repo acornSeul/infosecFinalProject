@@ -18,7 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.team5_final.fragment.AfterLoginActivity;
-import com.example.team5_final.network.RequestHttpURLConnection;
+import com.example.team5_final.util.RequestHttpURLConnection;
 
 import org.json.JSONObject;
 
@@ -95,8 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
                 NetworkTask login_nt = new NetworkTask("login", "login/getcnt", login_values, cnt_values);
                 login_nt.execute();
-                //Map<String, String> map = lambda.loginProcess(loginId, loginPw, type);
-                //loginEvent(map.get("response"), Integer.parseInt(map.get("cnt")), map.get("mem_id"));
             }
         }
     }
@@ -165,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!mem_id.equals("")){
                     Intent intent = new Intent(MainActivity.this, AfterLoginActivity.class);
                     intent.putExtra("uniqueId", mem_id);
+                    Log.d("main unique", mem_id);
                     startActivity(intent);
                     Log.d("seul intent param", mem_id);
                 }

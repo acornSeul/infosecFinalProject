@@ -8,8 +8,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.team5_final.network.AddressResponse;
-import com.example.team5_final.network.NaverMapApi;
+import com.example.team5_final.util.AddressResponse;
+import com.example.team5_final.util.NaverMapApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.concurrent.TimeUnit;

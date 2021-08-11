@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.team5_final.network.RequestHttpURLConnection;
+import com.example.team5_final.util.RequestHttpURLConnection;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -28,7 +28,7 @@
         <activity android:name=".fragment.AfterLoginActivity"
                   android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".TestActivity"/>
-        <activity android:name=".ScanTestActivity"/>
+        <activity android:name=".UserScanActivity"/>
         <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation"/>
@@ -38,6 +38,8 @@
         <activity android:name=".NormalInvoiceActivity"/>
         <activity android:name=".InvoiceScanActivity"/>
         <activity android:name=".PostManActivity"/>
+        <activity android:name=".ReviewActivity"/>
+        <activity android:name=".RefundActivity"/>
     </application>
 
 </manifest>

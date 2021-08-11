@@ -4,12 +4,17 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-import com.example.team5_final.network.RequestHttpURLConnection;
+import com.example.team5_final.util.RequestHttpURLConnection;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import lombok.SneakyThrows;
@@ -29,11 +34,18 @@ public class ApplyInfoActivity extends AppCompatActivity {
     TextView txt_p_name;
     TextView txt_p_cnt;
     TextView txt_p_price;
-
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applyinfo);
+
+        toolbar = findViewById(R.id.toolbar_apply_info);
+        ((AppCompatActivity) ApplyInfoActivity.this).setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true); //뒤로가기 버튼
 
         txt_encryptYn = findViewById(R.id.txt_encryptYn);
         txt_createTime = findViewById(R.id.txt_createTime);
@@ -49,11 +61,20 @@ public class ApplyInfoActivity extends AppCompatActivity {
         txt_p_cnt = findViewById(R.id.txt_p_cnt);
         txt_p_price = findViewById(R.id.txt_p_price);
 
-
         Intent intent = getIntent();
         in_num = intent.getStringExtra("in_num");
         invoice_linkNetwork();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void invoice_linkNetwork() {

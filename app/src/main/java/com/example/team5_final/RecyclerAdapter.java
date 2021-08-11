@@ -66,7 +66,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ViewHolder>{
         holder.item_name.setText(userInvoice.getName());
         holder.item_re_name.setText(userInvoice.getRe_name());
 
-        if (!userInvoice.getEncryptYn().equals("Y")){
+        if (userInvoice.getEncryptYn().equals("N")){
             holder.img_encrypt.setVisibility(View.INVISIBLE);
         }
 
