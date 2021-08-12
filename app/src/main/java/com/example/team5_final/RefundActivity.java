@@ -30,6 +30,7 @@ public class RefundActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refund);
 
+        //from UserScanActivity
         Intent intent = getIntent();
         in_num = intent.getStringExtra("in_num");
 

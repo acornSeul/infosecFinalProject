@@ -1,4 +1,4 @@
-package com.example.team5_final;
+package com.example.test_db.qrcode;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.team5_final.R;
 import com.example.team5_final.util.AddressResponse;
 import com.example.team5_final.util.NaverMapApi;
 import com.google.gson.Gson;

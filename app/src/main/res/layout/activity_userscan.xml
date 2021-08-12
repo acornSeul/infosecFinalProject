@@ -352,7 +352,7 @@
         android:drawableLeft="@drawable/ic_baseline_edit_24"
         android:text="후기 작성"
         app:layout_constraintBottom_toBottomOf="@id/guideline_btn"
-        app:layout_constraintLeft_toLeftOf="@id/guideline_btn2"
+        app:layout_constraintLeft_toLeftOf="@id/guide_post1"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="30dp" />
 
@@ -365,7 +365,7 @@
         android:drawableLeft="@drawable/ic_baseline_edit_24"
         android:text="환불 신청"
         app:layout_constraintBottom_toBottomOf="@id/guideline_btn"
-        app:layout_constraintLeft_toLeftOf="@id/guideline_btn2"
+        app:layout_constraintLeft_toLeftOf="@id/guide_post1"
         tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -376,14 +376,14 @@
         app:layout_constraintGuide_end="78dp" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_btn2"
+        android:id="@+id/guide_post1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="34dp" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_btn3"
+        android:id="@+id/guid_post3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"

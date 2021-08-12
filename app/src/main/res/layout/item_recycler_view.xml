@@ -132,6 +132,16 @@
             app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/ic_baseline_lock_24" />
 
+        <TextView
+            android:id="@+id/item_encrypt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="0sp"
+            tools:layout_editor_absoluteX="395dp"
+            tools:layout_editor_absoluteY="82dp"
+            tools:ignore="MissingConstraints" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View

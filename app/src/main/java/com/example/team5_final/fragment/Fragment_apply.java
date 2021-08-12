@@ -97,7 +97,7 @@ public class Fragment_apply extends Fragment{
         //실행 시 전체 공백처리
         clearText();
 
-        //ArfterLoginActivity에서 넘긴 parameter
+        //from AfterLoginActivity
         Bundle extra = this.getArguments();
 
         if (extra != null){

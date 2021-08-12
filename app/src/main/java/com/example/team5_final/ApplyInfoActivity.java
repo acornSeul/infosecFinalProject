@@ -6,19 +6,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import com.example.team5_final.util.RequestHttpURLConnection;
-
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import lombok.SneakyThrows;
 
+// 신청 상세 내역 화면
 public class ApplyInfoActivity extends AppCompatActivity {
     String in_num;
     TextView txt_encryptYn;
@@ -61,12 +59,12 @@ public class ApplyInfoActivity extends AppCompatActivity {
         txt_p_cnt = findViewById(R.id.txt_p_cnt);
         txt_p_price = findViewById(R.id.txt_p_price);
 
+        //from RecyclerAdpater
         Intent intent = getIntent();
         in_num = intent.getStringExtra("in_num");
         invoice_linkNetwork();
 
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
         switch (item.getItemId()){

@@ -28,6 +28,7 @@ import java.util.Hashtable;
 
 import lombok.SneakyThrows;
 
+//일반 택배 운송장 화면
 public class NormalInvoiceActivity extends AppCompatActivity {
     TextView txt_in_name;
     TextView txt_in_phone;
@@ -47,6 +48,7 @@ public class NormalInvoiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_normalinvoice);
 
+        //from RecyclerAdapter
         Intent intent = getIntent();
         in_num = intent.getStringExtra("in_num");
         mem_id = intent.getStringExtra("mem_id");

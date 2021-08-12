@@ -15,6 +15,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
         >
+        <!--Activity-->
         <activity android:name="com.example.team5_final.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +28,7 @@
         <activity android:name="com.example.test_db.qrcode.ScanQR"/>
         <activity android:name=".fragment.AfterLoginActivity"
                   android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".TestActivity"/>
+        <activity android:name="com.example.test_db.qrcode.TestActivity"/>
         <activity android:name=".UserScanActivity"/>
         <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
@@ -38,8 +39,10 @@
         <activity android:name=".NormalInvoiceActivity"/>
         <activity android:name=".InvoiceScanActivity"/>
         <activity android:name=".PostManActivity"/>
+        <activity android:name=".PostScanActivity"/>
         <activity android:name=".ReviewActivity"/>
         <activity android:name=".RefundActivity"/>
+        <activity android:name=".PostListActivity"/>
     </application>
 
 </manifest>

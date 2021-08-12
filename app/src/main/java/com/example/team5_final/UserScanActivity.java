@@ -55,6 +55,7 @@ public class UserScanActivity extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
 
+        //from InvoiceScanActivity
         Intent intent = getIntent();
         String result = intent.getStringExtra("result");
         uniqueId = intent.getStringExtra("mem_id");

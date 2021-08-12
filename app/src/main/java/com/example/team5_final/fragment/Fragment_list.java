@@ -43,8 +43,9 @@ public class Fragment_list extends Fragment {
         ActionBar actionBar = ((AppCompatActivity) getContext()).getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-        Bundle extra = this.getArguments();
 
+        //from AfterLoginActivity
+        Bundle extra = this.getArguments();
         if (extra != null){
             extra = getArguments();
             uniqueId = extra.getString("uniqueId");

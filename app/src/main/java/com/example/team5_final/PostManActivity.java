@@ -8,7 +8,8 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class PostManActivity extends AppCompatActivity {
-    Button btn_tag_qr;
+    Button btn_tagQr;
+    Button btn_tagList;
     String uniqueId;
 
     @Override
@@ -16,15 +17,26 @@ public class PostManActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
         setContentView(R.layout.activity_postman);
 
+        //from MainActivity
         Intent intent = getIntent();
         uniqueId = intent.getStringExtra("uniqueId");
 
-        btn_tag_qr = findViewById(R.id.btn_tag_qr);
+        btn_tagQr = findViewById(R.id.btn_tagQr);
+        btn_tagList = findViewById(R.id.btn_tagList);
 
-        btn_tag_qr.setOnClickListener(new View.OnClickListener() {
+        btn_tagQr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PostManActivity.this, InvoiceScanActivity.class);
+                intent.putExtra("uniqueId", uniqueId);
+                startActivity(intent);
+            }
+        });
+
+        btn_tagList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PostManActivity.this, PostListActivity.class);
                 intent.putExtra("uniqueId", uniqueId);
                 startActivity(intent);
             }

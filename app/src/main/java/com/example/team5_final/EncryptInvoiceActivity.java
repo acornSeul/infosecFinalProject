@@ -29,6 +29,7 @@ import java.util.Hashtable;
 
 import lombok.SneakyThrows;
 
+//안전 택배 운송장
 public class EncryptInvoiceActivity extends AppCompatActivity {
     String in_num;
     String uniqueId;
@@ -40,6 +41,7 @@ public class EncryptInvoiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encryptinvoice);
 
+        //from RecyclerAdapter
         Intent intent = getIntent();
         in_num = intent.getStringExtra("in_num");
         uniqueId = intent.getStringExtra("mem_id");

@@ -24,6 +24,7 @@ public class AfterLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afrerlogin);
 
+        //from MainActivity
         Intent intent = getIntent();
         uniqueId = intent.getStringExtra("uniqueId");
         Log.d("afterlogin unique", uniqueId);
@@ -78,4 +79,12 @@ public class AfterLoginActivity extends AppCompatActivity {
         transaction.setReorderingAllowed(true);
         transaction.commitNow();
     }
+/*
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Fragment_list list = new Fragment_list();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,list).commit();
+        list.refreshAdapter(uniqueId);
+    }*/
 }

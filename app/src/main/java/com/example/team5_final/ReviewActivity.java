@@ -43,6 +43,7 @@ public class ReviewActivity extends AppCompatActivity {
             }
         });
 
+        //from UserScanActivity
         Intent intent = getIntent();
         in_num = intent.getStringExtra("in_num");
 

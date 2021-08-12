@@ -23,8 +23,8 @@ public class Fragment_home extends Fragment{
 
         btn_scan = (Button)view.findViewById(R.id.btn_scan);
 
+        //from AfterLoginActivity
         Bundle extra = this.getArguments();
-
         if (extra != null){
             extra = getArguments();
             uniqueId = extra.getString("uniqueId");
