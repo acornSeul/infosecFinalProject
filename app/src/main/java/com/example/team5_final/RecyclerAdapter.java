@@ -44,6 +44,7 @@ class ViewHolder extends RecyclerView.ViewHolder{
                 v.getContext().startActivity(intent);
             }
         });
+
     }
 }
 @AllArgsConstructor
@@ -89,7 +90,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ViewHolder>{
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return dataList.size();

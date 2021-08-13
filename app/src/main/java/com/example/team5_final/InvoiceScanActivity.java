@@ -54,7 +54,7 @@ public class InvoiceScanActivity extends AppCompatActivity {
                     // 택배기사가 할당 되지 않은 물량 스캔 시
                     if(cnt_result.equals("\"y\"")){
                         //운송장 update, 리스트 insert
-                        insertPostList(result_json.getString("in_num"), uniqueId, result_json.getString("re_address"));
+                        insertPostList(result_json.getString("in_num"), uniqueId, result_json.getString("re_address"), result_json.getString("re_name"), result_json.getString("state"));
                         Toast.makeText(InvoiceScanActivity.this, "추가 완료 했습니다.",Toast.LENGTH_SHORT).show();
                         Intent scan_intent = new Intent(InvoiceScanActivity.this, InvoiceScanActivity.class);
                         scan_intent.putExtra("uniqueId", uniqueId);
@@ -122,12 +122,14 @@ public class InvoiceScanActivity extends AppCompatActivity {
     }
     //운송장 내 tag_id update, list insert
     @SneakyThrows
-    public void insertPostList(String in_num, String tag_id, String address){
+    public void insertPostList(String in_num, String tag_id, String address, String name, String state){
         String url = "postlist";
         ContentValues values = new ContentValues();
         values.put("in_num", in_num);
         values.put("tag_id", tag_id);
         values.put("address", address);
+        values.put("name", name);
+        values.put("state", state);
 
         NetworkTask list_nt = new NetworkTask(url, values, "POST");
         list_nt.execute();

@@ -9,41 +9,115 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="@+id/img_encrypt"
-        app:layout_constraintStart_toEndOf="@+id/img_encrypt">
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="0dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="5dp" />
+        android:background="@color/white">
 
         <CheckBox
             android:id="@+id/check_postList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="7dp"
-            tools:layout_editor_absoluteY="1dp"
+            android:layout_width="27dp"
+            android:layout_height="48dp"
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/txt_listInNum"
+            android:id="@+id/txt_address"
+            android:layout_width="232dp"
+            android:layout_height="wrap_content"
+            android:singleLine="false"
+            android:text="TextView"
+            android:textColor="@color/black"
+            app:layout_constraintHorizontal_bias="0.194"
+            app:layout_constraintLeft_toRightOf="@id/guideline_check"
+            app:layout_constraintRight_toLeftOf="@id/guideline_right"
+            app:layout_constraintTop_toBottomOf="@id/guideline_address"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/txt_listName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:text="TextView"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/guidline_name"
+            app:layout_constraintRight_toLeftOf="@id/guideline_right"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidline_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="253dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@+id/txt_listName"
+            app:layout_constraintGuide_end="5dp"
+            app:layout_constraintStart_toEndOf="@+id/guideline_address" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@+id/guidline_name"
+            app:layout_constraintGuide_end="46dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="35dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="289dp" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:background="@color/button"
+            app:layout_constraintRight_toLeftOf="@id/guideline_check"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="27dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:background="@color/button"
+            app:layout_constraintLeft_toRightOf="@id/guideline_right"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="27dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="302dp" />
+
+        <TextView
+            android:id="@+id/txt_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/guide_state"
             tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="71dp"
             tools:layout_editor_absoluteY="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="13dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

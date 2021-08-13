@@ -146,8 +146,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@android:color/darker_gray"
+        android:layout_height="1dp"
+        android:background="@color/button"
         tools:ignore="MissingConstraints" />
 
 </LinearLayout>
