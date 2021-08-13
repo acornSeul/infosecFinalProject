@@ -23,18 +23,17 @@ public class Fragment_home extends Fragment{
 
         btn_scan = (Button)view.findViewById(R.id.btn_scan);
 
+        //from AfterLoginActivity
         Bundle extra = this.getArguments();
-
         if (extra != null){
             extra = getArguments();
             uniqueId = extra.getString("uniqueId");
         }
 
-
         btn_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("seul id", uniqueId);
+                Log.d("frag_home unique", uniqueId);
                 Intent intent = new Intent(getContext(), InvoiceScanActivity.class);
                 intent.putExtra("uniqueId", uniqueId);
                 startActivity(intent);

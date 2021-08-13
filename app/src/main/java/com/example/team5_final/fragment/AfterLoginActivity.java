@@ -2,6 +2,7 @@ package com.example.team5_final.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -23,10 +24,18 @@ public class AfterLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afrerlogin);
 
+        //from MainActivity
         Intent intent = getIntent();
         uniqueId = intent.getStringExtra("uniqueId");
+        Log.d("afterlogin unique", uniqueId);
 
         bottomNavigationView = findViewById(R.id.bottom_view);
+
+        Fragment_home home = new Fragment_home();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,home).commit();
+        Bundle bundle = new Bundle();
+        bundle.putString("uniqueId", uniqueId);
+        home.setArguments(bundle);
 
         Menu menu = bottomNavigationView.getMenu();
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -36,6 +45,7 @@ public class AfterLoginActivity extends AppCompatActivity {
                 return true;
             }
         });
+
     }
     private void BottomNavigate(int id){
         String tag = String.valueOf(id);
@@ -69,4 +79,12 @@ public class AfterLoginActivity extends AppCompatActivity {
         transaction.setReorderingAllowed(true);
         transaction.commitNow();
     }
+/*
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Fragment_list list = new Fragment_list();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,list).commit();
+        list.refreshAdapter(uniqueId);
+    }*/
 }

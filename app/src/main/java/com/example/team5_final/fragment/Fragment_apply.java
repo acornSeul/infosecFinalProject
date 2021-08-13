@@ -17,11 +17,11 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.team5_final.network.AddressResponse;
 import com.example.team5_final.AfterApplyActivity;
-import com.example.team5_final.network.NaverMapApi;
 import com.example.team5_final.R;
-import com.example.team5_final.network.RequestHttpURLConnection;
+import com.example.team5_final.util.AddressResponse;
+import com.example.team5_final.util.NaverMapApi;
+import com.example.team5_final.util.RequestHttpURLConnection;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -97,7 +97,7 @@ public class Fragment_apply extends Fragment{
         //실행 시 전체 공백처리
         clearText();
 
-        //ArfterLoginActivity에서 넘긴 parameter
+        //from AfterLoginActivity
         Bundle extra = this.getArguments();
 
         if (extra != null){
@@ -351,9 +351,6 @@ public class Fragment_apply extends Fragment{
                 Intent intent = new Intent(getContext(), AfterApplyActivity.class);
                 startActivity(intent);
                 clearText();
-
-                Fragment_list f_list = new Fragment_list();
-                f_list.refreshAdapter(uniqueId);
             }
         }
     }

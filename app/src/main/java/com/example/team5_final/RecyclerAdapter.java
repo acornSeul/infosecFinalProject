@@ -29,6 +29,7 @@ class ViewHolder extends RecyclerView.ViewHolder{
 
     public ViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
+
         item_in_num = itemView.findViewById(R.id.item_in_num);
         item_name = itemView.findViewById(R.id.item_name);
         item_re_name = itemView.findViewById(R.id.item_re_name);
@@ -43,6 +44,7 @@ class ViewHolder extends RecyclerView.ViewHolder{
                 v.getContext().startActivity(intent);
             }
         });
+
     }
 }
 @AllArgsConstructor
@@ -66,7 +68,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ViewHolder>{
         holder.item_name.setText(userInvoice.getName());
         holder.item_re_name.setText(userInvoice.getRe_name());
 
-        if (!userInvoice.getEncryptYn().equals("Y")){
+        if (userInvoice.getEncryptYn().equals("N")){
             holder.img_encrypt.setVisibility(View.INVISIBLE);
         }
 
@@ -88,7 +90,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ViewHolder>{
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return dataList.size();

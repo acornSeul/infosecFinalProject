@@ -5,25 +5,81 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="144dp"
-        android:text="택배기사 화면 입니다."
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-35dp"
+        tools:layout_editor_absoluteY="0dp">
 
-    <Button
-        android:id="@+id/btn_tag_qr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="QR 스캔"
-        android:backgroundTint="@color/button2"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <TextView
+            android:id="@+id/textview_toolbar_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BLIND POST"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="137dp"
+            tools:layout_editor_absoluteY="6dp" />
+
+        <include
+            android:id="@+id/toolbar_user"
+            layout="@layout/toolbar_user" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="78dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_post1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="53dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guid_post3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="213dp" />
+
+        <Button
+            android:id="@+id/btn_tagQr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/button2"
+            android:text="QR 스캔"
+            android:drawableLeft="@drawable/ic_baseline_qr_code_scanner_24"
+            app:layout_constraintLeft_toLeftOf="@id/guide_post1"
+            app:layout_constraintBottom_toTopOf="@id/guide_post2"
+            tools:layout_editor_absoluteX="36dp"
+            tools:layout_editor_absoluteY="304dp"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/btn_tagList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/button2"
+            android:drawableLeft="@drawable/ic_baseline_list_alt_24"
+            android:text="배송 목록"
+            app:layout_constraintBottom_toTopOf="@id/guide_post2"
+            app:layout_constraintLeft_toLeftOf="@id/guid_post3"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_post2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="352dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
