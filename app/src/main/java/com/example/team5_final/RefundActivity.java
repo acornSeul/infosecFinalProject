@@ -5,12 +5,17 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.team5_final.util.RequestHttpURLConnection;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import lombok.SneakyThrows;
@@ -44,12 +49,29 @@ public class RefundActivity extends AppCompatActivity {
         txt_ref_address = findViewById(R.id.txt_ref_address);
         txt_ref_zipCode = findViewById(R.id.txt_ref_zipCode);
 
+        Toolbar toolbar = findViewById(R.id.toolbar_user);
+        ((AppCompatActivity) RefundActivity.this).setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24);
+
         String url = "refund";
         ContentValues values = new ContentValues();
         values.put("i.in_num", in_num);
 
         NetworkTask nt = new NetworkTask(url, values, "GET");
         nt.execute();
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
     // 환불신청 폼 초기화 setting
     public class NetworkTask extends AsyncTask<Void, Void, String> {

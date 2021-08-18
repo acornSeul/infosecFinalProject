@@ -11,19 +11,6 @@
         tools:layout_editor_absoluteX="-35dp"
         tools:layout_editor_absoluteY="0dp">
 
-
-        <TextView
-            android:id="@+id/textview_toolbar_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="BLIND POST"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="137dp"
-            tools:layout_editor_absoluteY="6dp" />
-
         <include
             android:id="@+id/toolbar_user"
             layout="@layout/toolbar_user" />

@@ -25,8 +25,8 @@
             tools:layout_editor_absoluteY="6dp" />
 
         <include
-            android:id="@+id/toolbar_user"
-            layout="@layout/toolbar_user" />
+            android:id="@+id/toolbar_postman"
+            layout="@layout/toolbar_postman" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_btn"
@@ -40,14 +40,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="53dp" />
+            app:layout_constraintGuide_begin="39dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guid_post3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="213dp" />
+            app:layout_constraintGuide_begin="191dp" />
 
         <Button
             android:id="@+id/btn_tagQr"

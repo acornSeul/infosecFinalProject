@@ -29,5 +29,3 @@ public class PostList {
         isSelected = selected;
     }
 }
-
-

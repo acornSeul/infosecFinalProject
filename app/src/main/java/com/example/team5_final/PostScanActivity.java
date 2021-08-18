@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import lombok.SneakyThrows;
 
+// 택배기사가 자신의 물량을 한번 더 스캔할 경우
 public class PostScanActivity extends AppCompatActivity {
     TextView scan_name;
     TextView scan_phone;

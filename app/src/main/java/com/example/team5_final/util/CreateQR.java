@@ -1,4 +1,4 @@
-package com.example.test_db.qrcode;
+package com.example.team5_final.util;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;

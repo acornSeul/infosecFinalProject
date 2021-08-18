@@ -11,4 +11,6 @@
     <color name="button2">#9370DB</color>
     <color name="button_back">#F8F8FF</color>
     <color name="encrypt_color">#FF0040</color>
+    <color name="button_voc">#6B8E23</color>
+    <color name="voc_detail">#1E90FF</color>
 </resources>

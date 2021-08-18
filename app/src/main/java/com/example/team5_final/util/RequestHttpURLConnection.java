@@ -12,6 +12,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Base64;
 import java.util.Map;
 
 import lombok.SneakyThrows;
@@ -69,7 +70,12 @@ public class RequestHttpURLConnection {
             // [2-1]. urlConn 설정.
             if (method.equals("POST")){
                 URL url = new URL(_url);
+                //String encoding = Base64.getEncoder().encodeToString()
                 urlConn = (HttpURLConnection) url.openConnection();
+                String userId = "admin";
+                String password = "admin";
+                String auth = userId + ":" + password;
+                String authEncoding = Base64.getEncoder().encodeToString((auth).getBytes("UTF-8"));
 
                 urlConn.setDoOutput(true);
                 urlConn.setDoInput(true);
@@ -78,13 +84,9 @@ public class RequestHttpURLConnection {
                 urlConn.setRequestProperty("Accept-Charset", "UTF-8"); // Accept-Charset 설정.
                 urlConn.setRequestProperty("Content-Type", "application/json");
                 urlConn.setRequestProperty("Accept", "application/json");
+                urlConn.setRequestProperty("Authorization", "Basic " + authEncoding);
                 // [2-2]. parameter 전달 및 데이터 읽어오기.
                 String strParams = json.toString(); //json 형식으로 저장
-                
-                Log.d("params test : ", strParams);
-                Log.d("method test ", method);
-                //urlConn.setDoOutput(true);
-                //OutputStream os = urlConn.getOutputStream();
                 OutputStreamWriter writer = new OutputStreamWriter(urlConn.getOutputStream());
                 writer.write(strParams);
                 writer.flush();
@@ -122,11 +124,10 @@ public class RequestHttpURLConnection {
 
             return page;
 
-
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            Log.d("MalformedURLException","MalformedURLException Ocurred!");
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d("IOException","IOException Ocurred!");
         } finally {
             if (urlConn != null)
                 urlConn.disconnect();

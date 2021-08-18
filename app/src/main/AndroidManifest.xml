@@ -23,12 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--QR test-->
         <activity android:name="com.example.test_db.qrcode.MainActivityQR"/>
-        <activity android:name="com.example.test_db.qrcode.CreateQR"/>
+        <activity android:name=".util.CreateQR"/>
         <activity android:name="com.example.test_db.qrcode.ScanQR"/>
         <activity android:name=".fragment.AfterLoginActivity"
                   android:windowSoftInputMode="adjustPan"/>
-        <activity android:name="com.example.test_db.qrcode.TestActivity"/>
         <activity android:name=".UserScanActivity"/>
         <activity android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
@@ -43,6 +43,8 @@
         <activity android:name=".ReviewActivity"/>
         <activity android:name=".RefundActivity"/>
         <activity android:name=".PostListActivity"/>
+        <activity android:name=".PostListDetailActivity"/>
+        <activity android:name=".VocActivity"/>
     </application>
 
 </manifest>

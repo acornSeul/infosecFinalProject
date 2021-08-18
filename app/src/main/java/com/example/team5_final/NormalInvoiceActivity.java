@@ -59,6 +59,7 @@ public class NormalInvoiceActivity extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true); //뒤로가기 버튼
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24);
 
         txt_in_name = findViewById(R.id.txt_in_name);
         txt_in_phone = findViewById(R.id.txt_in_phone);
@@ -72,6 +73,9 @@ public class NormalInvoiceActivity extends AppCompatActivity {
         txt_in_p_cnt = findViewById(R.id.txt_in_p_cnt);
         img_normal = findViewById(R.id.img_normal_qr);
 
+        getCustomerInfo(in_num);
+    }
+    public void getCustomerInfo(String in_num){
         String url = "invoice/detail/normal";
         ContentValues values = new ContentValues();
         values.put("in_num", in_num);

@@ -46,12 +46,13 @@ public class EncryptInvoiceActivity extends AppCompatActivity {
         in_num = intent.getStringExtra("in_num");
         uniqueId = intent.getStringExtra("mem_id");
 
-        Toolbar toolbar = findViewById(R.id.toolbar_invoice);
+        Toolbar toolbar = findViewById(R.id.toolbar_encypt);
         ((AppCompatActivity) EncryptInvoiceActivity.this).setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true); //뒤로가기 버튼
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24);
 
         txt_en_address = findViewById(R.id.txt_en_address);
         txt_en_zipCode = findViewById(R.id.txt_en_zipCode);

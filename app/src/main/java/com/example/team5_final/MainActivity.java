@@ -4,9 +4,9 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -16,20 +16,25 @@ import android.widget.Toast;
 import androidx.annotation.Dimension;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.team5_final.fragment.AfterLoginActivity;
 import com.example.team5_final.util.RequestHttpURLConnection;
+import com.example.team5_final.util.SaveSharedPreference;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import lombok.SneakyThrows;
 
 public class MainActivity extends AppCompatActivity {
+    private long backKeyClickTime = 0;
     EditText edit_id;
     EditText edit_pw;
     Button btn_login;
     TextView txt_alert;
     TextView txt_alertpw;
+    CheckBox chk_auto;
     RadioGroup group;
     RadioButton radio_c;
     RadioButton radio_t;
@@ -39,13 +44,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (SaveSharedPreference.getUserName(MainActivity.this).length() != 0){
+            if (Integer.parseInt(SaveSharedPreference.getUserName(MainActivity.this)) >= 7000){
+                Intent login_intent = new Intent(MainActivity.this, PostManActivity.class);
+                login_intent.putExtra("uniqueId", SaveSharedPreference.getUserName(MainActivity.this));
+                startActivity(login_intent);
+
+            }else{
+                Intent login_intent = new Intent(MainActivity.this, AfterLoginActivity.class);
+                login_intent.putExtra("uniqueId", SaveSharedPreference.getUserName(MainActivity.this));
+                startActivity(login_intent);
+            }
+        }
+
         edit_id = findViewById(R.id.edit_userId);
         edit_pw = findViewById(R.id.edit_pw);
         btn_login = findViewById(R.id.btn_login);
         txt_alert = findViewById(R.id.txt_alert);
         txt_alertpw = findViewById(R.id.txt_alertpw);
+        chk_auto = findViewById(R.id.chk_auto);
         group = findViewById(R.id.radioGroup);
         group.clearCheck();
+
+    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        edit_id.setText("");
+        edit_pw.setText("");
     }
     // 로그인 구현
     @SneakyThrows
@@ -98,6 +124,19 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    //뒤로가기 앱 종료
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if (System.currentTimeMillis() > backKeyClickTime + 2000){
+            backKeyClickTime = System.currentTimeMillis();
+            Toast.makeText(MainActivity.this, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (System.currentTimeMillis() <= backKeyClickTime + 2000){
+            ActivityCompat.finishAffinity(this);
+        }
+    }
     //로그인 서버 통신
     public class NetworkTask extends AsyncTask<Void, Void, String> {
         private String url = "https://hqlb195661.execute-api.us-east-2.amazonaws.com/Develop/";
@@ -122,63 +161,81 @@ public class MainActivity extends AppCompatActivity {
             result2 = connection.request(url2, values2, "GET");
 
             JSONObject result_json = new JSONObject(result);
-            JSONObject result2_json = new JSONObject(result2);
             JSONObject new_json = new JSONObject();
-
+            if (!result2.equals("null")){
+                JSONObject result2_json = new JSONObject(result2);
+                new_json.put("loginCnt", result2_json.getString("loginCnt"));
+            }
             new_json.put("response", result_json.getString("response"));
             new_json.put("mem_id", result_json.getString("mem_id"));
             new_json.put("tag_id", result_json.getString("tag_id"));
-            new_json.put("loginCnt", result2_json.getString("loginCnt"));
 
             return new_json.toString();
         }
-
-        @SneakyThrows
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            JSONObject total_result = new JSONObject(s);
+            JSONObject total_result = null;
+            try {
+                total_result = new JSONObject(s);
+            } catch (JSONException e) {
+            }
 
-            loginEvent(total_result.getString("response"),Integer.parseInt(total_result.getString("loginCnt")),total_result.getString("mem_id"), total_result.getString("tag_id"));
+            if(total_result.length() == 3){
+                try {
+                    loginEvent_noId(total_result.getString("response"), total_result.getString("mem_id"),total_result.getString("tag_id"));
+                } catch (JSONException e) {
+                }
+            }
+            else{
+                try {
+                    loginEvent_existId(total_result.getString("response"),Integer.parseInt(total_result.getString("loginCnt")),total_result.getString("mem_id"), total_result.getString("tag_id"));
+                } catch (JSONException e) {
+                }
+            }
         }
     }
-    //로그인 처리
-    public void loginEvent (String result, int cnt, String mem_id, String tag_id){
+    //로그인 처리 - 아이디는 맞는 경우
+    public void loginEvent_existId (String result, int cnt, String mem_id, String tag_id){
         if (cnt < 5){
             if(result.equals("x")){
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
                 dialog.setMessage("비밀번호 오류입니다. \n 비밀번호 오류 5회 초과시 계정이 잠깁니다.( " + cnt + " / 5 )")
                         .setPositiveButton("확인", null)
                         .show();
-
-            }
-            else if (result.equals("n")){
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                dialog.setMessage("존재하지 않는 아이디입니다.")
-                        .setPositiveButton("확인", null)
-                        .show();
             }
             else if (result.equals("o")){
                 //소비자 로그인
                 if (!mem_id.equals("")){
+                    if (chk_auto.isChecked() == true) {
+                        SaveSharedPreference.setUserName(MainActivity.this, mem_id);
+                    }
                     Intent intent = new Intent(MainActivity.this, AfterLoginActivity.class);
                     intent.putExtra("uniqueId", mem_id);
-                    Log.d("main unique", mem_id);
                     startActivity(intent);
-                    Log.d("seul intent param", mem_id);
                 }
                 //택배기사 로그인
                 else{
+                    if (chk_auto.isChecked() == true) {
+                        SaveSharedPreference.setUserName(MainActivity.this, tag_id);
+                    }
                     Intent intent = new Intent(MainActivity.this, PostManActivity.class);
                     intent.putExtra("uniqueId", tag_id);
                     startActivity(intent);
-                    Log.d("seul intent param", tag_id);
                 }
             }
         }
         else{
             AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
             dialog.setMessage("비밀번호 오류 횟수 초과로 인해 계정이 잠깁니다.\n관리자에게 문의해주세요.")
+                    .setPositiveButton("확인", null)
+                    .show();
+        }
+    }
+    public void loginEvent_noId (String result, String mem_id, String tag_id){
+        if (result.equals("n")){
+            AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+            dialog.setMessage("존재하지 않는 아이디입니다.")
                     .setPositiveButton("확인", null)
                     .show();
         }

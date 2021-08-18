@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -44,6 +45,7 @@ public class ApplyInfoActivity extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true); //뒤로가기 버튼
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24);
 
         txt_encryptYn = findViewById(R.id.txt_encryptYn);
         txt_createTime = findViewById(R.id.txt_createTime);
@@ -79,7 +81,7 @@ public class ApplyInfoActivity extends AppCompatActivity {
         String i_url = "invoice/detail";
         ContentValues values = new ContentValues();
         values.put("in_num", in_num);
-
+        Log.d("applyinfo detail param result", in_num);
         NetworkTask detail_nt = new NetworkTask(i_url, values, "GET");
         detail_nt.execute();
     }

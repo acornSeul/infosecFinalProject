@@ -30,24 +30,23 @@
             android:id="@+id/item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="3dp"
             android:layout_marginBottom="3dp"
             android:text="TextView"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/txt_name2"
-            app:layout_constraintEnd_toEndOf="@+id/item_re_name"
+            app:layout_constraintBottom_toTopOf="@+id/item_re_name"
+            app:layout_constraintStart_toEndOf="@+id/txt_name"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/txt_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:text="받는 사람 : "
+            android:text="보내는 사람 : "
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/txt_name2"
+            app:layout_constraintBaseline_toBaselineOf="@+id/item_name"
             app:layout_constraintStart_toStartOf="@+id/guideline6"
             tools:ignore="MissingConstraints" />
 
@@ -55,7 +54,7 @@
             android:id="@+id/txt_name2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="보내는 사람 : "
+            android:text="받는 사람 : "
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/item_re_name"
@@ -66,29 +65,28 @@
             android:id="@+id/item_in_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="2dp"
             android:text="TextView"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/img_encrypt"
             app:layout_constraintStart_toEndOf="@+id/txt_in_num"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline8"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/txt_in_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="4dp"
             android:text="[운송장번호]"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/item_in_num"
-            app:layout_constraintHorizontal_bias="0.24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline8"
             tools:ignore="MissingConstraints" />
@@ -110,8 +108,8 @@
         <Button
             android:id="@+id/btn_invoice"
             android:layout_width="0dp"
-            android:layout_height="42dp"
-            android:layout_marginEnd="76dp"
+            android:layout_height="41dp"
+            android:layout_marginEnd="92dp"
             android:backgroundTint="@color/button2"
             android:text="운송장"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -122,24 +120,25 @@
 
         <ImageView
             android:id="@+id/img_encrypt"
-            android:layout_width="26dp"
-            android:layout_height="21dp"
-            android:layout_marginEnd="59dp"
+            android:layout_width="38dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="51dp"
             app:layout_constraintBottom_toBottomOf="@+id/item_in_num"
             app:layout_constraintEnd_toStartOf="@+id/btn_invoice"
             app:layout_constraintStart_toEndOf="@+id/item_in_num"
-            app:layout_constraintTop_toTopOf="@+id/guideline8"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintTop_toTopOf="@+id/item_in_num"
             app:srcCompat="@drawable/ic_baseline_lock_24" />
 
         <TextView
             android:id="@+id/item_encrypt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:textColor="@color/white"
             android:textSize="0sp"
-            tools:layout_editor_absoluteX="395dp"
-            tools:layout_editor_absoluteY="82dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
