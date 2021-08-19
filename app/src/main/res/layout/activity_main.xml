@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/guide_id"
         app:layout_constraintVertical_bias="0.35">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -35,14 +35,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="15dp"
         android:layout_marginRight="40dp"
         android:hint="@string/loginpw"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.50">
+        app:layout_constraintTop_toBottomOf="@id/guide_pass"
+        app:layout_constraintVertical_bias="0.04000002">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_pw"
@@ -63,27 +62,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65999997">
 
         <RadioButton
             android:id="@+id/radio_c"
             android:layout_width="76dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/c" />
+            android:text="@string/c"
+            android:theme="@style/RadioButton" />
 
         <RadioButton
             android:id="@+id/radio_t"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/t" />
+            android:text="@string/t"
+            android:theme="@style/RadioButton" />
     </RadioGroup>
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/button2"
         android:onClick="onLogin"
         android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -91,7 +94,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.645" />
+        app:layout_constraintVertical_bias="0.69" />
 
     <TextView
         android:id="@+id/txt_alert"
@@ -108,36 +111,50 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:textColor="#FD0000"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
-    <Button
-        android:id="@+id/btn_qr"
-        android:layout_width="66dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:onClick="onClick"
-        android:text="QR"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_test"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_test"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="192dp"
-        android:onClick="onClick"
-        android:text="test"
-        app:layout_constraintEnd_toStartOf="@+id/btn_qr"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="269dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="338dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_autoga"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="218dp" />
+
+    <CheckBox
+        android:id="@+id/chk_auto"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text="자동 로그인"
+        app:layout_constraintLeft_toRightOf="@id/guide_autose"
+        app:layout_constraintTop_toBottomOf="@id/guide_autoga"
+        tools:layout_editor_absoluteX="41dp"
+        tools:layout_editor_absoluteY="220dp"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_autose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="40dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,12 +2,13 @@
 buildscript {
     repositories {
         google()
-        mavenCentral()
+        jcenter()
+        maven { url "https://jitpack.io" }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.2"
         classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.8"
-
+        //classpath 'com.android.support:support-v4:21.0.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -16,9 +17,9 @@ buildscript {
 apply plugin: "org.sonarqube"
 sonarqube {
     properties {
-        property "sonar.host.url", "http://ec2-18-119-140-144.us-east-2.compute.amazonaws.com:9000/"
+        property "sonar.host.url", "http://ec2-3-144-94-135.us-east-2.compute.amazonaws.com:9000/"
         property "sonar.login", "admin"        // 로그인 id 또는 인증토큰
-        property "sonar.password", "!!abc123!!"    // 인증토큰 사용시는 공백으로
+        property "sonar.password", "skinfosec"    // 인증토큰 사용시는 공백으로
         property "sonar.projectKey", "team05"
         property "sonar.projectName", "team05"
         property "sonar.projectVersion", "1.0"
@@ -28,12 +29,10 @@ sonarqube {
         //property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/coverageReport/coverageReport.xml"    // Test Coverage Report 생성한 경우 사용
     }
 }
-
 allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
     }
 }
 

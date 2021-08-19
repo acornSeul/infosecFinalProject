@@ -5,193 +5,218 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <include
-                android:id="@+id/toolbar_user"
-                layout="@layout/toolbar_user" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
 
-        </LinearLayout>
-        <RadioGroup
-            android:id="@+id/radiogroup_type"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+                <include
+                    android:id="@+id/toolbar_user"
+                    layout="@layout/toolbar_user" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
 
-            <TextView
-                android:id="@+id/textview_review"
+                <TextView
+                    android:id="@+id/textview_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="58dp"
+                    android:text="후기 작성"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLa2yout"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/layout_round"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_purchase"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="구매 일자      " />
+
+                    <TextView
+                        android:id="@+id/txt_purchaseDate"
+                        android:layout_width="131dp"
+                        android:layout_height="35dp"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="판매처          " />
+
+                    <TextView
+                        android:id="@+id/txt_producer"
+                        android:layout_width="131dp"
+                        android:layout_height="35dp"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:text="주문번호    " />
+
+                    <TextView
+                        android:id="@+id/txt_orderNum"
+                        android:layout_width="160dp"
+                        android:layout_height="35dp"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textVi546ew9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:text="후기          " />
+
+                    <EditText
+                        android:id="@+id/edit_review"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|left"
+                        android:background="@drawable/layout_round"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:inputType="textMultiLine"
+                        android:lines="5"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/button"
+                    tools:ignore="MissingConstraints" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_reveiwSelect1"
+                        android:layout_width="253dp"
+                        android:layout_height="36dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_selector"
+                        android:text="상품이 마음에 들어요"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_reveiwSelect2"
+                        android:layout_width="253dp"
+                        android:layout_height="36dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_selector"
+                        android:text="상품이 안전하게 도착했어요"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_reveiwSelect3"
+                        android:layout_width="253dp"
+                        android:layout_height="36dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_selector"
+                        android:text="배송이 빨라요"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_insertReview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_margin="15dp"
-                android:layout_marginRight="58dp"
-                android:text="후기 작성"
-                android:textColor="@color/black" />
-
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/button2"
+                android:text="완료" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLa2yout"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/layout_round"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView_purchase"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="구매 일자      " />
-
-                <TextView
-                    android:id="@+id/txt_purchaseDate"
-                    android:layout_width="131dp"
-                    android:layout_height="35dp"
-                    android:ems="10"
-                    android:textColor="@color/black"
-                    android:inputType="textPersonName"
-                    android:textSize="14sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="판매처           " />
-
-                <TextView
-                    android:id="@+id/txt_producer"
-                    android:layout_width="131dp"
-                    android:layout_height="35dp"
-                    android:ems="10"
-                    android:textColor="@color/black"
-                    android:inputType="textPersonName"
-                    android:textSize="14sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView_phone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
-                    android:text="주문번호    " />
-
-                <TextView
-                    android:id="@+id/txt_orderNum"
-                    android:layout_width="160dp"
-                    android:layout_height="35dp"
-                    android:ems="10"
-                    android:textColor="@color/black"
-                    android:inputType="textPersonName"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginRight="15dp"
-                    android:text="평점         " />
-
-                <RatingBar
-                    android:id="@+id/review_rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:progressBackgroundTint="@color/button"
-                    android:progressTint="@color/button2"
-                    android:secondaryProgressTint="@color/button2"
-                    android:isIndicator="false"
-                    android:max="5"
-                    android:numStars="5"
-                    style="@style/Widget.AppCompat.RatingBar.Indicator"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textVi546ew9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
-                    android:text="후기          " />
-
-                <EditText
-                    android:id="@+id/edit_review"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/layout_round"
-                    android:ems="10"
-                    android:lines="5"
-                    android:layout_gravity="top|left"
-                    android:gravity="start|top"
-                    android:inputType="textMultiLine"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"/>
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_insertReview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/button2"
-            android:text="완료" />
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

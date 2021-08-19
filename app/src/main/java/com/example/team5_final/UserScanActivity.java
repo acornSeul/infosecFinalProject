@@ -3,14 +3,21 @@ package com.example.team5_final;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.team5_final.util.SaveSharedPreference;
+
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import lombok.SneakyThrows;
@@ -19,6 +26,7 @@ public class UserScanActivity extends AppCompatActivity {
     String uniqueId;
     Button btn_review;
     Button btn_refund;
+    Button btn_voc;
     TextView scan_name;
     TextView scan_phone;
     TextView scan_address;
@@ -38,6 +46,7 @@ public class UserScanActivity extends AppCompatActivity {
 
         btn_review = findViewById(R.id.btn_review);
         btn_refund = findViewById(R.id.btn_refund);
+        btn_voc = findViewById(R.id.btn_voc);
         scan_name = findViewById(R.id.scan_name);
         scan_phone = findViewById(R.id.scan_phone);
         scan_address = findViewById(R.id.scan_address);
@@ -54,6 +63,8 @@ public class UserScanActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24);
 
         //from InvoiceScanActivity
         Intent intent = getIntent();
@@ -85,6 +96,36 @@ public class UserScanActivity extends AppCompatActivity {
                 startActivity(refund_intent);
             }
         });
+        // 고객의 소리 버튼
+        btn_voc.setOnClickListener(new View.OnClickListener() {
+            @SneakyThrows
+            @Override
+            public void onClick(View v) {
+                Intent voc_intent = new Intent(UserScanActivity.this, VocActivity.class);
+                voc_intent.putExtra("in_num", json.getString("in_num"));
+                startActivity(voc_intent);
+            }
+        });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.list_menu, menu);
+
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.logout:
+                SaveSharedPreference.clearUserName(UserScanActivity.this);
+                Intent intent = new Intent(UserScanActivity.this, MainActivity.class);
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
     @SneakyThrows
     public void setInvoice(JSONObject json){

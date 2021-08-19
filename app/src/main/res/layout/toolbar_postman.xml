@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="120dp"
         android:gravity="center"
-        android:text="배송 목록"
+        android:text="BLIND POST"
         android:textColor="@color/white"
         android:textSize="20sp" />
 </androidx.appcompat.widget.Toolbar>

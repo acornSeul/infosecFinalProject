@@ -57,7 +57,7 @@
                     android:id="@+id/textView_ornum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="주문 번호      " />
+                    android:text="주문 번호          " />
 
                 <TextView
                     android:id="@+id/txt_ref_orNum"
@@ -78,11 +78,11 @@
                     android:id="@+id/textView_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="상품명           " />
+                    android:text="상품명             " />
 
                 <EditText
                     android:id="@+id/txt_ref_pName"
-                    android:layout_width="131dp"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
@@ -100,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
-                    android:text="배송 완료일   " />
+                    android:text="배송 완료일 " />
 
                 <EditText
                     android:id="@+id/txt_ref_findate"
@@ -130,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
-                    android:text="환불 사유       " />
+                    android:text="환불 사유     " />
 
                 <EditText
                     android:id="@+id/edit_refund"
@@ -213,7 +213,7 @@
                     android:id="@+id/textView_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="전화번호      " />
+                    android:text="전화번호    " />
 
                 <TextView
                     android:id="@+id/txt_ref_phone"
@@ -234,11 +234,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
-                    android:text="주소     " />
+                    android:text="주소      " />
 
                 <TextView
                     android:id="@+id/txt_ref_address"
-                    android:layout_width="160dp"
+                    android:layout_width="250dp"
                     android:layout_height="35dp"
                     android:ems="10"
                     android:textColor="@color/black"
@@ -264,13 +264,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
-                    android:text="             " />
+                    android:text="            " />
 
                 <TextView
                     android:id="@+id/txt_ref_zipCode"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textColor="@color/black"/>
             </LinearLayout>
 
             <LinearLayout

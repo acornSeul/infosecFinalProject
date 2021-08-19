@@ -57,6 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="58dp"
+                android:layout_marginBottom="5dp"
                 android:text="보내는 사람"
                 android:textColor="@color/black" />
 
@@ -346,15 +347,14 @@
 
     <Button
         android:id="@+id/btn_review"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="129dp"
+        android:layout_height="47dp"
         android:backgroundTint="@color/button2"
         android:drawableLeft="@drawable/ic_baseline_edit_24"
         android:text="후기 작성"
         app:layout_constraintBottom_toBottomOf="@id/guideline_btn"
         app:layout_constraintLeft_toLeftOf="@id/guide_post1"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="30dp" />
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btn_refund"
@@ -373,7 +373,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="78dp" />
+        app:layout_constraintGuide_end="92dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_post1"
@@ -388,5 +388,25 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="205dp" />
+
+    <Button
+        android:id="@+id/btn_voc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/button_voc"
+        android:drawableLeft="@drawable/ic_baseline_edit_24"
+        android:text="고객의 소리함"
+
+        app:layout_constraintTop_toBottomOf="@id/guide_voc"
+        app:layout_constraintLeft_toLeftOf="@id/guide_post1"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="30dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_voc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="595dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

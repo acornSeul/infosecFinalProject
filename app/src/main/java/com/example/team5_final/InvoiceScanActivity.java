@@ -81,7 +81,6 @@ public class InvoiceScanActivity extends AppCompatActivity {
                             builder.show();
                         }
                     }
-
                 }else{
                     //자신의 정보 스캔 시
                     if (uniqueId.equals(result_json.getString("mem_id"))) {

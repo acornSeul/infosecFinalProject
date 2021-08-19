@@ -23,15 +23,15 @@
             android:id="@+id/header2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="130dp"
+            android:layout_marginLeft="110dp"
             android:layout_marginTop="3dp"
-            android:text="주소 / 성함"
+            android:text="주소 / 운송장 번호 / 성함"
             android:textColor="@color/black" />
         <TextView
             android:id="@+id/header3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="310dp"
+            android:layout_marginLeft="325dp"
             android:layout_marginTop="3dp"
             android:text="상태"
             android:textColor="@color/black" />
@@ -47,7 +47,7 @@
             android:layout_width="0.5dp"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
-            android:layout_marginLeft="289dp"
+            android:layout_marginLeft="314dp"
             android:background="@color/button_back"/>
     </RelativeLayout>
 
@@ -76,13 +76,14 @@
         tools:layout_editor_absoluteY="595dp">
 
         <Button
-            android:id="@+id/btn_scanQr"
+            android:id="@+id/btn_listQr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="27dp"
             android:layout_marginTop="15dp"
             android:layout_marginRight="15dp"
             android:backgroundTint="@color/button2"
+            android:onClick="onClick"
             android:text="QR 스캔" />
 
         <Button
@@ -117,6 +118,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="289dp" />
+        app:layout_constraintGuide_begin="314dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

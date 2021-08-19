@@ -1,11 +1,16 @@
 package com.example.team5_final.fragment;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,6 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.team5_final.AfterApplyActivity;
@@ -25,6 +31,7 @@ import com.example.team5_final.util.RequestHttpURLConnection;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import java.util.concurrent.TimeUnit;
@@ -142,40 +149,55 @@ public class Fragment_apply extends Fragment{
             @SneakyThrows
             @Override
             public void onClick(View v) {
-                apply_values.put("mem_id", uniqueId);
-                apply_values.put("in_name", mem_name.getText().toString());
-                apply_values.put("in_phone", mem_phone.getText().toString());
-                apply_values.put("in_zipCode", mem_zipCode.getText().toString());
-                apply_values.put("in_address", mem_address.getText().toString() + " " + mem_detail.getText().toString());
-                //택배 타입 설정
-                int rb = group.getCheckedRadioButtonId();
-                switch (rb){
-                    case R.id.radio_encrypt:
-                        encrpyt_type = "Y";
-                        break;
-                    case R.id.radio_normal:
-                        encrpyt_type = "N";
-                        break;
-                }
-                apply_values.put("encryptYn", encrpyt_type);
-                //받는 사람 정보
-                apply_values.put("re_name", rename.getText().toString());
-                apply_values.put("re_phone", rePhone.getText().toString());
-                apply_values.put("re_zipCode", rezipCode.getText().toString());
-                apply_values.put("re_address", readdress.getText().toString() + " " + reDetail.getText().toString());
-                //물품 정보
-                apply_values.put("p_name", p_name.getText().toString());
-                apply_values.put("p_cnt", p_cnt.getText().toString());
-                apply_values.put("p_price", p_price.getText().toString());
+                if (isBlank() == false){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("신청 오류")
+                            .setMessage("신청서 내용을 빠짐없이 작성해 주세요.")
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                // 여기 부분!!!!!!!!!
-                String apply_url = "apply";
-                ApplyNetworkTask apply_nt = new ApplyNetworkTask(apply_url, apply_values, "POST");
-                apply_nt.execute();
+                                }
+                            });
+                    builder.show();
+                }else{
+                    Log.d("seul text check", mem_name.getText().toString());
+                    apply_values.put("mem_id", uniqueId);
+                    apply_values.put("in_name", mem_name.getText().toString());
+                    apply_values.put("in_phone", mem_phone.getText().toString());
+                    apply_values.put("in_zipCode", mem_zipCode.getText().toString());
+                    apply_values.put("in_address", mem_address.getText().toString() + " " + mem_detail.getText().toString());
+                    //택배 타입 설정
+                    int rb = group.getCheckedRadioButtonId();
+                    switch (rb){
+                        case R.id.radio_encrypt:
+                            encrpyt_type = "Y";
+                            break;
+                        case R.id.radio_normal:
+                            encrpyt_type = "N";
+                            break;
+                    }
+                    apply_values.put("encryptYn", encrpyt_type);
+                    //받는 사람 정보
+                    apply_values.put("re_name", rename.getText().toString());
+                    apply_values.put("re_phone", rePhone.getText().toString());
+                    apply_values.put("re_zipCode", rezipCode.getText().toString());
+                    apply_values.put("re_address", readdress.getText().toString() + " " + reDetail.getText().toString());
+                    //물품 정보
+                    apply_values.put("p_name", p_name.getText().toString());
+                    apply_values.put("p_cnt", p_cnt.getText().toString());
+                    apply_values.put("p_price", p_price.getText().toString());
+
+                    // 여기 부분!!!!!!!!!
+                    String apply_url = "apply";
+                    ApplyNetworkTask apply_nt = new ApplyNetworkTask(apply_url, apply_values, "POST");
+                    apply_nt.execute();
+                }
             }
         });
         return view;
     }
+
     //도로명 주소 검색
     private void searchAddress(String query, final EditText input_zipcode, final EditText input_addr, TextView out_addr) {
         OkHttpClient client = new OkHttpClient.Builder()
@@ -268,9 +290,13 @@ public class Fragment_apply extends Fragment{
         p_cnt.setText("");
         p_price.setText("");
     }
-    //Fragment Interface
-    interface RefreshInterface{
-        public void refreshAdapterFragment_list();
+    public boolean isBlank(){
+        if (mem_name.getText().toString().equals("") || mem_phone.getText().toString().equals("") || mem_address.getText().toString().equals("") || mem_zipCode.getText().toString().equals("") ||
+            rename.getText().toString().equals("") || readdress.getText().toString().equals("") || rezipCode.getText().toString().equals("") || rePhone.getText().toString().equals("") ||
+            p_name.getText().toString().equals("") || p_cnt.getText().toString().equals("0") || p_price.getText().toString().equals("0")) {
+            return false;
+        }
+        return true;
     }
     //기본 정보 조회 통신
     public class DefaultNetworkTask extends AsyncTask<Void, Void, String> {

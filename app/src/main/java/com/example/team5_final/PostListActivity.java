@@ -4,18 +4,26 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.team5_final.dto.PostList;
 import com.example.team5_final.util.RequestHttpURLConnection;
+import com.example.team5_final.util.SaveSharedPreference;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -31,6 +39,8 @@ public class PostListActivity extends AppCompatActivity {
     ArrayList<PostList> postData = null;
     String uniqueId;
     Button btn_start;
+    Button btn_finish;
+    Button btn_listQr;
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -43,6 +53,16 @@ public class PostListActivity extends AppCompatActivity {
 
         list_recycler = findViewById(R.id.recycler_postlist);
         btn_start = findViewById(R.id.btn_start);
+        btn_finish = findViewById(R.id.btn_finish);
+        btn_listQr = findViewById(R.id.btn_listQr);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_postlist);
+        ((AppCompatActivity) PostListActivity.this).setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24);
 
         postData = new ArrayList<>();
         setRecyclerView();
@@ -51,6 +71,7 @@ public class PostListActivity extends AppCompatActivity {
     public void onClick(View v){
         List<PostList> list = adapter.getPostList();
         switch (v.getId()){
+            // 배송 출발
             case R.id.btn_start:
                 String url = "/postlist/updatelist";
                 ContentValues values = new ContentValues();
@@ -58,16 +79,22 @@ public class PostListActivity extends AppCompatActivity {
 
                 for (int i = 0; i < list.size(); i++){
                     if (list.get(i).getSelected()){
-                        postData.get(i).setState("leave");
-                        values.put("in_num", list.get(i).getIn_num());
-                        values.put("state", "leave");
-                        nt = new StateNetwork(url, values, "POST");
-                        nt.execute();
+                        if (list.get(i).getState().equals("fin")){
+                            Toast.makeText(this, "배송 완료된 물품입니다.", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            postData.get(i).setState("leave");
+                            values.put("in_num", list.get(i).getIn_num());
+                            values.put("state", "leave");
+                            nt = new StateNetwork(url, values, "POST");
+                            nt.execute();
 
-                        adapter.notifyDataSetChanged();
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 }
                 break;
+            // 배송 완료
             case R.id.btn_finish:
                 String fin_url = "/postlist/updatelist";
                 ContentValues fin_values = new ContentValues();
@@ -80,11 +107,37 @@ public class PostListActivity extends AppCompatActivity {
                         fin_values.put("state", "fin");
                         fin_nt = new StateNetwork(fin_url, fin_values, "POST");
                         fin_nt.execute();
-                        Log.d("finish in method", "finish!");
+
                         adapter.notifyDataSetChanged();
                     }
                 }
+                break;
+            // QR 스캔
+            case R.id.btn_listQr:
+                Intent intent = new Intent(PostListActivity.this, InvoiceScanActivity.class);
+                intent.putExtra("uniqueId", uniqueId);
+                startActivity(intent);
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.list_menu, menu);
+
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull @NotNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.logout:
+                SaveSharedPreference.clearUserName(PostListActivity.this);
+                Intent intent = new Intent(PostListActivity.this, MainActivity.class);
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
     public void setData(){
         String url = "postlist/viewlist";
@@ -150,7 +203,6 @@ public class PostListActivity extends AppCompatActivity {
             RequestHttpURLConnection connection = new RequestHttpURLConnection();
             result = connection.request(url, values, method);
 
-            Log.d("finish in network", "network finish!!");
             return result;
         }
     }

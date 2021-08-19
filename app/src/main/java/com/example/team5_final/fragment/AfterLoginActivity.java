@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -18,6 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class AfterLoginActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     String uniqueId;
+    private long backKeyClickTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class AfterLoginActivity extends AppCompatActivity {
                 return true;
             }
         });
+
 
     }
     private void BottomNavigate(int id){
@@ -79,12 +83,17 @@ public class AfterLoginActivity extends AppCompatActivity {
         transaction.setReorderingAllowed(true);
         transaction.commitNow();
     }
-/*
+
     @Override
-    protected void onRestart() {
-        super.onRestart();
-        Fragment_list list = new Fragment_list();
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame,list).commit();
-        list.refreshAdapter(uniqueId);
-    }*/
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if (System.currentTimeMillis() > backKeyClickTime + 2000){
+            backKeyClickTime = System.currentTimeMillis();
+            Toast.makeText(AfterLoginActivity.this, "뒤로가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (System.currentTimeMillis() <= backKeyClickTime + 2000){
+            ActivityCompat.finishAffinity(this);
+        }
+    }
 }
