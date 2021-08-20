@@ -125,9 +125,9 @@ public class RequestHttpURLConnection {
             return page;
 
         } catch (MalformedURLException e) {
-            Log.d("MalformedURLException","MalformedURLException Ocurred!");
+            Log.d("Exception1","Connection Error Occurred!");
         } catch (IOException e) {
-            Log.d("IOException","IOException Ocurred!");
+            Log.d("Exception2","Connection Error Occurred!");
         } finally {
             if (urlConn != null)
                 urlConn.disconnect();
